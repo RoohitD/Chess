@@ -2,39 +2,24 @@ package Pieces;
 
 import java.util.Arrays;
 
+import Chess_Game.Spot;
+
 public abstract class ChessPieces {
 	Boolean isWhite; 
-	protected int x;
-	protected int y;
 	int moveablelist[][];
 	
 	
 	
-	public ChessPieces(int x, int y, Boolean isWhite) {
-		this.x = x;
-		this.y = y;
+	public ChessPieces(Boolean isWhite) {
 		this.isWhite = isWhite;
 	}
 
-	public abstract boolean canMove(int X, int Y, ChessPieces[][] board);
-
-	public void move(int goX, int goY){
-		this.x = goX;
-		this.y = goY;
-	}
+	public abstract boolean canMove(Spot startSpot, Spot endSpot, Spot[][] board);
 
 	public abstract char getSymbol();
 
 	public boolean isWhite(){
 		return isWhite;
-	}
-
-	public int getX(){
-		return x;
-	}
-
-	public int getY() {
-		return y;
 	}
 	
 }

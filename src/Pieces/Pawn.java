@@ -2,19 +2,21 @@ package Pieces;
 
 import java.util.ArrayList;
 
+import Chess_Game.Spot;
+
 public class Pawn extends ChessPieces{
 	
 	private boolean hasMoved;
 
-	public Pawn(int x, int y, Boolean isWhite) {
-        super(x, y, isWhite);
+	public Pawn(Boolean isWhite) {
+        super(isWhite);
 		hasMoved = false;
     }
 
 	@Override
-	public boolean canMove(int goX, int goY, ChessPieces[][] board) {
-		int newX = goX - x;
-		int newY = goY - y;
+	public boolean canMove(Spot startSpot, Spot endSpot, Spot[][] board) {
+		int newX = Math.abs(startSpot.getX() - endSpot.getX());
+		int newY = Math.abs(startSpot.getY() - endSpot.getY());
 		int direction;
 
 		//Set the direction of movement for the Pawn
@@ -25,25 +27,17 @@ public class Pawn extends ChessPieces{
 		}
 
 		//Check for the Pawn's First Move
-		if(newY == 2 * direction && newX == 0){
-			if(board[x + direction][y] != null || board[goX][goY] != null){
-				return false;
-			}
+		if(newY == 2 && newX == 0 && !hasMoved && board[endSpot.getX()][endSpot.getY() + direction] != null){
+			return true;
 		}
 
 		//Check for the Pawn's Move After First
-		if(newY != direction && (newY != 2 * direction || hasMoved || x != 1 && x != 6)){
-			return false;
+		if(newY != direction && (newY == direction || !hasMoved || endSpot.getX() != 1 && endSpot.getX() != 6)){
+			return true;
 		}
 
 		return true;
 		
-	}
-
-	@Override
-	public void move(int goX, int goY){
-		super.move(goX, goY);
-		hasMoved = true;
 	}
 
 	@Override

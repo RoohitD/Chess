@@ -4,12 +4,40 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import Pieces.ChessPieces;
+import Pieces.King;
+import Pieces.Pawn;
 
 //import java.lang.reflect.Array;
 
 public class Board {
+		
+	private Spot[][] boardSpots;
 
-	//printing the chess board
+	public Board(){
+		this.boardSpots = new Spot[8][8];
+		resetBoard();
+	}
+
+	public Spot getSpot(int x, int y){
+		return boardSpots[x][y];
+	}
+
+	private void resetBoard() {
+			boardSpots[0][0] = new Spot(0, 4, new King(false));
+			
+			for (int i = 0; i < 8; i++) {
+				boardSpots[1][i] = new Spot(1, i, new Pawn(false));
+			}
+			
+	}
+	
+	
+	
+	
+	
+	
+/*
+ //printing the chess board
 	public void draw( ChessPieces[][] chess) {
 			
 		for( int i = 0 ; i < 8 ; i++) {
@@ -41,16 +69,7 @@ public class Board {
 		System.out.println( "    a          b         c        d          e         f          g         h   " );
 		}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+ */
 	
 //	public void draw(ChessPieces[][] chess ) {
 //		
