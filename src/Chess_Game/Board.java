@@ -23,8 +23,9 @@ public class Board {
 	}
 
 	private void resetBoard() {
+			King king = new King(false);
 			boardSpots[0][0] = new Spot(0, 4, new King(false));
-			
+
 			for (int i = 0; i < 8; i++) {
 				boardSpots[1][i] = new Spot(1, i, new Pawn(false));
 			}

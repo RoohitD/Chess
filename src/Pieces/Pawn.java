@@ -26,6 +26,7 @@ public class Pawn extends ChessPieces{
 			direction = 1;
 		}
 
+	
 		//Check for the Pawn's First Move
 		if(newY == 2 && newX == 0 && !hasMoved && board[endSpot.getX()][endSpot.getY() + direction] != null){
 			return true;

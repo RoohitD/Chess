@@ -9,7 +9,10 @@ public class Spot {
     private ChessPieces piece;
 
 
-    public Spot(int i, int j, King king) {
+    public Spot(int x, int y, King king) {
+        this.x = x;
+        this.y = y;
+        this.piece = piece;
     }
 
     public void Spot(int x, int y, ChessPieces piece){
