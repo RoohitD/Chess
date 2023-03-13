@@ -8,14 +8,7 @@ public class Spot {
     private int y;
     private ChessPieces piece;
 
-
-    public Spot(int x, int y, King king) {
-        this.x = x;
-        this.y = y;
-        this.piece = piece;
-    }
-
-    public void Spot(int x, int y, ChessPieces piece){
+    public Spot(int x, int y, ChessPieces piece){
         this.x = x;
         this.y = y;
         this.piece = piece;

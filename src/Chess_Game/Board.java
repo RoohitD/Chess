@@ -3,9 +3,13 @@ package Chess_Game;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import Pieces.Bishop;
 import Pieces.ChessPieces;
 import Pieces.King;
+import Pieces.Knight;
 import Pieces.Pawn;
+import Pieces.Queen;
+import Pieces.Rook;
 
 //import java.lang.reflect.Array;
 
@@ -23,13 +27,44 @@ public class Board {
 	}
 
 	private void resetBoard() {
-			King king = new King(false);
+
+			//Create Black Pieces
+			boardSpots[0][0] = new Spot(0, 0, new Rook(false));
+        	boardSpots[0][1] = new Spot(0, 1, new Knight(false));
+        	boardSpots[0][2] = new Spot(0, 2, new Bishop(false));
+			boardSpots[0][2] = new Spot(0, 2, new Queen(false));
 			boardSpots[0][0] = new Spot(0, 4, new King(false));
+			boardSpots[0][5] = new Spot(0, 5, new Bishop(false));
+			boardSpots[0][6] = new Spot(0, 6, new Knight(false));
+			boardSpots[0][7] = new Spot(0, 7, new Rook(false));
 
 			for (int i = 0; i < 8; i++) {
 				boardSpots[1][i] = new Spot(1, i, new Pawn(false));
 			}
 			
+
+			// Create Blank Spaces for No Pieces
+			for (int i = 2; i < 6; i++) {
+				for (int j = 0; j < 8; j++) {
+					boardSpots[i][j] = new Spot(i, j, null);
+				}
+			}
+	
+
+			// Create White Pieces
+			for (int i = 0; i < 8; i++) {
+				boardSpots[7][i] = new Spot(1, i, new Pawn(false));
+			}
+
+			boardSpots[7][0] = new Spot(0, 0, new Rook(true));
+        	boardSpots[7][1] = new Spot(0, 1, new Knight(true));
+        	boardSpots[7][2] = new Spot(0, 2, new Bishop(true));
+			boardSpots[7][2] = new Spot(0, 2, new Queen(true));
+			boardSpots[7][0] = new Spot(0, 4, new King(true));
+			boardSpots[7][5] = new Spot(0, 5, new Bishop(true));
+			boardSpots[7][6] = new Spot(0, 6, new Knight(true));
+			boardSpots[7][7] = new Spot(0, 7, new Rook(true));
+
 	}
 	
 	

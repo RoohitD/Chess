@@ -4,7 +4,7 @@ import Chess_Game.Spot;
 
 public class Knight extends ChessPieces{
 
-    public Knight(int x, int y, Boolean isWhite) {
+    public Knight(Boolean isWhite) {
         super(isWhite);
     }
 
