@@ -1,20 +1,72 @@
-package chess;
+package Pieces;
 
 import java.util.ArrayList;
 
-public class pawn extends ChessPieces{
+public class Pawn extends ChessPieces{
+	
+	private boolean hasMoved;
+
+	public Pawn(int x, int y, Boolean isWhite) {
+        super(x, y, isWhite);
+		hasMoved = false;
+    }
+
+	@Override
+	public boolean canMove(int goX, int goY, ChessPieces[][] board) {
+		int newX = goX - x;
+		int newY = goY - y;
+		int direction;
+
+		//Set the direction of movement for the Pawn
+		if(isWhite == true){
+			direction = -1;
+		} else {
+			direction = 1;
+		}
+
+		//Check for the Pawn's First Move
+		if(newY == 2 * direction && newX == 0){
+			if(board[x + direction][y] != null || board[goX][goY] != null){
+				return false;
+			}
+		}
+
+		//Check for the Pawn's Move After First
+		if(newY != direction && (newY != 2 * direction || hasMoved || x != 1 && x != 6)){
+			return false;
+		}
+
+		return true;
+		
+	}
+
+	@Override
+	public void move(int goX, int goY){
+		super.move(goX, goY);
+		hasMoved = true;
+	}
+
+	@Override
+	public char getSymbol() {
+		if(isWhite == true){
+			return 'P';
+		} else {
+			return 'p';
+		}
+	}
+
 	
 	
-	// gloval varables
-	int currentRow ; 
-	int currentCol; 
+
+/*	
+	//--------------------------------------------------------------------------------------
+	//testing purpose printing the data
 	
-	
-	//---------------------------------------------------------------------
+		//---------------------------------------------------------------------
 	// array list to store the movable array position
 	
-	ArrayList<ArrayList<Integer>> move = new ArrayList<ArrayList<Integer>>();
-	ArrayList<ArrayList<Integer>> Killmove = new ArrayList<ArrayList<Integer>>();
+	//ArrayList<ArrayList<Integer>> move = new ArrayList<ArrayList<Integer>>();
+	//ArrayList<ArrayList<Integer>> Killmove = new ArrayList<ArrayList<Integer>>();
 	
 	
 	
@@ -22,21 +74,8 @@ public class pawn extends ChessPieces{
 	 //------------------------------------------------------------------------
 	// constructor 
 	
-	public pawn(String color, String location, String type) {
-		super(color, location, type);
-		
-		
-	}
 
-	public pawn (int row, int col) {
-		super();
-		this.currentRow = row; 
-		this.currentCol = col ;
-		buildMoveablelist();
-	}
-	
-	
-	
+
 	//--------------------------------------------------------------------------
 	// rules tha pawn can follow 
 	int moveRule[][] = {
@@ -60,7 +99,8 @@ public class pawn extends ChessPieces{
 	//-----------------------------------------------------------------------------
 	// making tha array list to store the data in the first place 
 	
-	
+
+
 	public void buildMoveablelist() {
 	
 			
@@ -81,12 +121,8 @@ public class pawn extends ChessPieces{
 			}
 		}
 	
-	
-	
-	//--------------------------------------------------------------------------------------
-	//testing perpose printing the data
-	
-	public void printl () {
+
+	 public void printl () {
 		
 		System.out.println("-------Regular Move--------------------");
 		for ( int i = 0; i < move.size(); i++) {
@@ -101,5 +137,8 @@ public class pawn extends ChessPieces{
 				System.out.println(Killmove.get(i).get(0)+","+ Killmove.get(i).get(1));
 		}
 	}
+	 */
+	
 
+	
 }

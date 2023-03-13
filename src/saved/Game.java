@@ -15,7 +15,7 @@ public class Game {
 	// global varable
 	
 	String input;
-	String turn= "white";
+	String turn= true;
 	boolean run= true;
 	int mfRow;
 	int mfCol; 
@@ -37,7 +37,7 @@ public class Game {
 		
 		while(run){
 			
-			if (turn.equals("white")) {
+			if (turn.equals(true)) {
 				System.out.println("white turn pleas make a move");
 			} else {
 				System.out.println("black turn please make a move");
@@ -63,15 +63,15 @@ public class Game {
 	
 	// white pieces
 	
-	ChessPieces wking = new king ("white", "a4","wK");
-	ChessPieces pawn1 = new pawn("white", "a7","wP");
-	ChessPieces pawn2 = new pawn("white", "b7","wP");
-	ChessPieces pawn3 = new pawn("white", "c7","wP");
-	ChessPieces pawn4 = new pawn("white", "d7","wP");
-	ChessPieces pawn5 = new pawn("white", "e7","wP");
-	ChessPieces pawn6 = new pawn("white", "f7","wP");
-	ChessPieces pawn7 = new pawn("white", "g7","wP");
-	ChessPieces pawn8 = new pawn("white", "h7","wP");
+	ChessPieces wking = new king (true, "a4","wK");
+	ChessPieces pawn1 = new pawn(true, "a7","wP");
+	ChessPieces pawn2 = new pawn(true, "b7","wP");
+	ChessPieces pawn3 = new pawn(true, "c7","wP");
+	ChessPieces pawn4 = new pawn(true, "d7","wP");
+	ChessPieces pawn5 = new pawn(true, "e7","wP");
+	ChessPieces pawn6 = new pawn(true, "f7","wP");
+	ChessPieces pawn7 = new pawn(true, "g7","wP");
+	ChessPieces pawn8 = new pawn(true, "h7","wP");
 	
 	
 	// Black Pieces
@@ -171,7 +171,7 @@ public class Game {
 		private void checkmovingitem(int row, int col) {
 		// TODO Auto-generated method stub
 			
-			if( (turn.equals("white") && (chess[row-1][col-1].color.equals("white"))) ) {
+			if( (turn.equals(true) && (chess[row-1][col-1].color.equals(true))) ) {
 				
 				
 				if (checkMoveable(mfRow,  mfCol)) {
@@ -196,7 +196,7 @@ public class Game {
 				
 				makeChanges(mfRow,  mfCol,  mtRow,  mtCol);
 				board.draw(chess);
-				turn = "white";	
+				turn = true;	
 			}else {
 				System.out.println("Please move " + turn +" pieces");
 				analized(scan.nextLine());

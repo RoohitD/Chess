@@ -1,7 +1,9 @@
-package chess;
+package Chess_Game;
 
 import java.util.Arrays;
 import java.util.Scanner;
+
+import Pieces.ChessPieces;
 
 //import java.lang.reflect.Array;
 

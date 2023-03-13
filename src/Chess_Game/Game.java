@@ -1,8 +1,12 @@
-package chess;
+package Chess_Game;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import Pieces.ChessPieces;
+import Pieces.king;
+import Pieces.pawn;
 
 public class Game {
 	
