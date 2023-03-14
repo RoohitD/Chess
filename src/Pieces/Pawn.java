@@ -26,18 +26,28 @@ public class Pawn extends ChessPieces{
 			direction = 1;
 		}
 	
-		//Check for the Pawn's First Move
-		if(newY == 2 && newX == 0 && !hasMoved && board[endSpot.getX()][endSpot.getY() + direction] != null){
-			return true;
+
+		// Check if the end spot is occupied by a piece of the same color
+		if(endSpot.getPiece() != null && endSpot.getPiece().isWhite() == startSpot.getPiece().isWhite()){
+			return false;
 		}
 
-		//Check for the Pawn's Move After First
-		if(newY != direction && (newY == direction || !hasMoved || endSpot.getX() != 1 && endSpot.getX() != 6)){
-			return true;
+		// Check if the pawn is moving straight forward
+		if(startSpot.getX() == endSpot.getX() && board[endSpot.getX()][endSpot.getY()].getPiece() == null){
+			if(endSpot.getY() == startSpot.getY() + direction || (endSpot.getY() == startSpot.getY() + 2 * direction && !hasMoved)){
+				return true;
+			}
 		}
 
-		return true;
-		
+		// Check if the pawn is capturing a piece diagonally
+		if(Math.abs(endSpot.getY() - startSpot.getY()) == 1 && endSpot.getX() == startSpot.getX() + direction){
+			// Check if the end spot is occupied by an opposing piece
+			if(endSpot.getPiece() != null && endSpot.getPiece().isWhite() != startSpot.getPiece().isWhite()){
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	@Override
