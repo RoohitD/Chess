@@ -47,10 +47,13 @@ public class Queen extends ChessPieces{
         return false;
     }
 
-    @Override
-    public char getSymbol() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSymbol'");
-    }
+
+	public String toString() {
+		if(isWhite == true){
+			return "Q";
+		} else {
+			return "q";
+		}
+	}
 
 }

@@ -16,8 +16,6 @@ public abstract class ChessPieces {
 
 	public abstract boolean canMove(Spot startSpot, Spot endSpot, Spot[][] board);
 
-	public abstract char getSymbol();
-
 	public boolean isWhite(){
 		return isWhite;
 	}

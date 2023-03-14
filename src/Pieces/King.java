@@ -45,12 +45,11 @@ public class King extends ChessPieces{
 	}
 
 
-	@Override
-	public char getSymbol() {
+	public String toString() {
 		if(isWhite == true){
-			return 'P';
+			return "K";
 		} else {
-			return 'p';
+			return "k";
 		}
 	}
 

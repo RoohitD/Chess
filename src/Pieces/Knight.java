@@ -26,9 +26,12 @@ public class Knight extends ChessPieces{
         return false;
     }
 
-    @Override
-    public char getSymbol() {
-        return 0;
-    }
-    
+
+	public String toString() {
+		if(isWhite == true){
+			return "N";
+		} else {
+			return "n";
+		}
+	}
 }

@@ -42,10 +42,12 @@ public class Bishop extends ChessPieces{
         return false;
     }
 
-    @Override
-    public char getSymbol() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSymbol'");
+    public String toString() {
+        if(isWhite == true){
+			return "B";
+		} else {
+			return "b";
+		}
     }
 
 }

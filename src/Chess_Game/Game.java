@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import Pieces.ChessPieces;
-import Pieces.king;
-import Pieces.pawn;
+import Pieces.King;
+import Pieces.Pawn;
 
 public class Game {
 	
@@ -21,20 +21,26 @@ public class Game {
 	String input;
 	String turn= "white";
 	boolean run= true;
-	int mfRow;
-	int mfCol; 
-	int mtRow ; 
-	int mtCol ;
+	
+	
+	//int mfRow;
+	//int mfCol; 
+	//int mtRow ; 
+	//int mtCol ;
 	
 
 	
+
+
+
+
 	//----------------------------------------------------------------------------------------------
 		// chess pieces object
 		
 		
 		// white pieces
-		
-		ChessPieces wking = new king ("white", "a4","wK");
+		/*
+		 ChessPieces wking = new king ("white", "a4","wK");
 		ChessPieces wpawn1 = new pawn("white", "a7","wP");
 		ChessPieces wpawn2 = new pawn("white", "b7","wP");
 		ChessPieces wpawn3 = new pawn("white", "c7","wP");
@@ -56,45 +62,58 @@ public class Game {
 		ChessPieces bpawn6 = new pawn("black", "f7","bP");
 		ChessPieces bpawn7 = new pawn("black", "g7","bP");
 		ChessPieces bpawn8 = new pawn("black", "h7","bP");
+		 */
+		
 		
 	
 		//---------------------------------------------------------------------
 		// constructor
 		
-		Game(){
-			board.draw(chess);
-			startGame();
-		}
+	public Game(){
+		board.draw();
+		startGame();
+	}
 	
 	
 	
 	//-------------------------------------------------------
 	// start game 
 	public void startGame() {
+		int i = 0;
 		
-		while(run){
+		while(i < 5){
 			
 			if (turn.equals("white")) {
-				System.out.println("white turn pleas make a move");
+				System.out.println("White's move: ");
 			} else {
-				System.out.println("black turn please make a move");
+				System.out.println("Black's move: ");
 			}
 			
-			analized(scan.nextLine());
+			//analized(scan.next());
 			
+			i++;
 			
 			//makeChanges(mfRow,  mfCol,  mtRow,  mtCol);
 			//board.draw(chess);
 		};
+		while (scan.next() == "resign") {
+			System.out.println("White's Move");
+			scan.next();
+			System.out.println("Black's move: ");
+		}
 		
+
 		System.out.println("Game end");
 		
 	}
+}
 	
 	
 	//--------------------------------------------------------------------------------
 	// array list to hold all the chess pieces in place like a chessboard 
-	
+	/*
+	 
+	 
 	ChessPieces[][] chess = {
 			{null, null, null, null, bking, null, null,null },
 			{bpawn1, bpawn2, null, bpawn4, bpawn5, bpawn6,bpawn7,bpawn8 },
@@ -106,11 +125,11 @@ public class Game {
 			{null, null, null, null, null, null, null,null }
 	};
 	
-	
+	*/
 	
 	//-------------------------------------------------------------------------------------
 	// analizing the player input so that we can move the object around the arraylist
-	
+	/* 
 	public void analized( String s) {
 			
 			
@@ -138,6 +157,24 @@ public class Game {
 				//System.out.println("Move To ( "+ mtRow +","+mtCol +" )");			
 			}	
 		}
+
+		public int InputConverter(String input){
+			String[] parts = input.split(" ");
+			String start = parts[0];
+			String end = parts[1];
+
+			// Convert the starting square (e4) into coordinates (4, 3)
+			int startX = start.charAt(0) - 'a';
+			int startY = Integer.parseInt(start.substring(1)) - 1;
+
+			// Convert the ending square (e7) into coordinates (4, 6)
+			int endX = end.charAt(0) - 'a';
+			int endY = Integer.parseInt(end.substring(1)) - 1;
+			
+			return 0;
+		}
+
+
 
 		public int mfColMap( String s, int index) {
 			int ret = 0;
@@ -253,3 +290,4 @@ public class Game {
 			
 	 		
 }
+*/

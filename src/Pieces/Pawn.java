@@ -50,12 +50,11 @@ public class Pawn extends ChessPieces{
 		return false;
 	}
 
-	@Override
-	public char getSymbol() {
+	public String toString() {
 		if(isWhite == true){
-			return 'P';
+			return "P";
 		} else {
-			return 'p';
+			return "p";
 		}
 	}
 

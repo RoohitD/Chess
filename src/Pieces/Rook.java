@@ -50,10 +50,13 @@ public class Rook extends ChessPieces{
             }
     }
 
-    @Override
-    public char getSymbol() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSymbol'");
-    }
+
+	public String toString() {
+		if(isWhite == true){
+			return "R";
+		} else {
+			return "r";
+		}
+	}
 
 }

@@ -68,7 +68,18 @@ public class Board {
 	}
 	
 	
-	
+	public void draw(){
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if(boardSpots[i][j].getPiece() == null){
+					System.out.print(" # ");
+				}
+				System.out.print(boardSpots[i][j].getPiece() + " ");
+				
+			}
+			System.out.println("");
+		}
+	}
 	
 	
 	
