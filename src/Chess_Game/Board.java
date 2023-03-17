@@ -75,7 +75,11 @@ public class Board {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if(boardSpots[i][j].getPiece() == null){
-					System.out.print("## ");
+					if ((i + j) % 2 == 0) { // alternate between "  " and "##"
+						System.out.print("   ");
+					} else {
+						System.out.print("## ");
+            }
 				} else {
 					System.out.print(boardSpots[i][j].getPiece() + " ");
 				}
