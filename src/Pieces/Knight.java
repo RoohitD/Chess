@@ -29,9 +29,9 @@ public class Knight extends ChessPieces{
 
 	public String toString() {
 		if(isWhite == true){
-			return "N";
+			return "wN";
 		} else {
-			return "n";
+			return "bN";
 		}
 	}
 }

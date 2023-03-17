@@ -44,9 +44,9 @@ public class Bishop extends ChessPieces{
 
     public String toString() {
         if(isWhite == true){
-			return "B";
+			return "wB";
 		} else {
-			return "b";
+			return "bB";
 		}
     }
 

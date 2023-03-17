@@ -47,9 +47,9 @@ public class King extends ChessPieces{
 
 	public String toString() {
 		if(isWhite == true){
-			return "K";
+			return "wK";
 		} else {
-			return "k";
+			return "bK";
 		}
 	}
 

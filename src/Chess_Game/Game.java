@@ -71,7 +71,7 @@ public class Game {
 		
 	public Game(){
 		board.draw();
-		startGame();
+		//startGame();
 	}
 	
 	

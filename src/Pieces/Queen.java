@@ -50,9 +50,9 @@ public class Queen extends ChessPieces{
 
 	public String toString() {
 		if(isWhite == true){
-			return "Q";
+			return "wQ";
 		} else {
-			return "q";
+			return "bQ";
 		}
 	}
 

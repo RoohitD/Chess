@@ -53,9 +53,9 @@ public class Rook extends ChessPieces{
 
 	public String toString() {
 		if(isWhite == true){
-			return "R";
+			return "wR";
 		} else {
-			return "r";
+			return "bR";
 		}
 	}
 
