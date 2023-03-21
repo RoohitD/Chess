@@ -71,7 +71,7 @@ public class Game {
 		
 	public Game(){
 		board.draw();
-		//startGame();
+		startGame();
 	}
 	
 	
@@ -85,8 +85,10 @@ public class Game {
 			
 			if (turn.equals("white")) {
 				System.out.println("White's move: ");
+				scan.nextLine();
 			} else {
 				System.out.println("Black's move: ");
+				scan.nextLine();
 			}
 			
 			//analized(scan.next());
@@ -109,23 +111,7 @@ public class Game {
 }
 	
 	
-	//--------------------------------------------------------------------------------
-	// array list to hold all the chess pieces in place like a chessboard 
-	/*
-	 
-	 
-	ChessPieces[][] chess = {
-			{null, null, null, null, bking, null, null,null },
-			{bpawn1, bpawn2, null, bpawn4, bpawn5, bpawn6,bpawn7,bpawn8 },
-			{null, null, null, null, null, null, null,null },
-			{null, null, null, null, null, null, null,null },
-			{null, null, null, null, null, null, null,null },
-			{null, null, null, bpawn3, null, null, null,null },
-			{wpawn1, wpawn2, wpawn3, wpawn4, wpawn5,wpawn6, wpawn7,wpawn8 },
-			{null, null, null, null, null, null, null,null }
-	};
-	
-	*/
+
 	
 	//-------------------------------------------------------------------------------------
 	// analizing the player input so that we can move the object around the arraylist
@@ -158,7 +144,7 @@ public class Game {
 			}	
 		}
 
-		public int InputConverter(String input){
+		public void InputConverter(String input){
 			String[] parts = input.split(" ");
 			String start = parts[0];
 			String end = parts[1];
@@ -171,7 +157,7 @@ public class Game {
 			int endX = end.charAt(0) - 'a';
 			int endY = Integer.parseInt(end.substring(1)) - 1;
 			
-			return 0;
+			// boardSpots[startX][startY].getPiece().canMove(new Spot(startX, startY, null), new Spot(endX, endY, null), boardSpots) ;
 		}
 
 
