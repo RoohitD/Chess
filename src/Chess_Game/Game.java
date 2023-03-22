@@ -74,30 +74,49 @@ public class Game {
 		startGame();
 	}
 	
-	
+	private void DecodeInput(String s){
+		String[] inputs = s.split(" ");
+		if(inputs.length == 3){
+			if (inputs[2].equalsIgnoreCase("resign")){
+				run= false;
+				System.out.print( turn + " loose");
+			}else if (inputs[2].equalsIgnoreCase("Draw")){
+				run = false ; 
+				System.out.print("Draw");
+			}else {
+				System.out.println("please give a valid input");
+				DecodeInput(scan.nextLine());
+			}
+		}
+		//System.out.println(inputs[2]);
+		
+	}
+
 	
 	//-------------------------------------------------------
 	// start game 
 	public void startGame() {
-		int i = 0;
-		
-		while(i < 5){
+
+		while(run){
 			
 			if (turn.equals("white")) {
 				System.out.println("White's move: ");
-				scan.nextLine();
+				//analized(scan.nextLine())
+				DecodeInput(scan.nextLine());
+				turn ="Black";
+			
+				
 			} else {
 				System.out.println("Black's move: ");
-				scan.nextLine();
+				DecodeInput(scan.nextLine());
+				turn = "white";
 			}
-			
 			//analized(scan.next());
-			
-			i++;
 			
 			//makeChanges(mfRow,  mfCol,  mtRow,  mtCol);
 			//board.draw(chess);
 		};
+
 		while (scan.next() == "resign") {
 			System.out.println("White's Move");
 			scan.next();
