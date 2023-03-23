@@ -26,6 +26,7 @@ public class Board {
 		return boardSpots[x][y];
 	}
 
+
 	private void resetBoard() {
 
 			//Create Black Pieces
@@ -52,7 +53,7 @@ public class Board {
 
 			// Create White Pieces
 			for (int i = 0; i < 8; i++) {
-				boardSpots[6][i] = new Spot(7, i, new Pawn(false));
+				boardSpots[6][i] = new Spot(6, i, new Pawn(true));
 			}
 			boardSpots[7][0] = new Spot(7, 0, new Rook(true));
         	boardSpots[7][1] = new Spot(7, 1, new Knight(true));

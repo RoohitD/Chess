@@ -29,12 +29,14 @@ public class Pawn extends ChessPieces{
 
 		// Check if the end spot is occupied by a piece of the same color
 		if(endSpot.getPiece() != null && endSpot.getPiece().isWhite() == startSpot.getPiece().isWhite()){
+			System.out.println("Check if the end spot is occupied by a piece of the same color");
 			return false;
 		}
 
 		// Check if the pawn is moving straight forward
 		if(startSpot.getX() == endSpot.getX() && board[endSpot.getX()][endSpot.getY()].getPiece() == null){
 			if(endSpot.getY() == startSpot.getY() + direction || (endSpot.getY() == startSpot.getY() + 2 * direction && !hasMoved)){
+				System.out.println("Check if the pawn is moving straight forward");
 				return true;
 			}
 		}
@@ -47,14 +49,14 @@ public class Pawn extends ChessPieces{
 			}
 		}
 
-		return false;
+		return true;
 	}
 
 	public String toString() {
 		if(isWhite == true){
 			return "wp";
 		} else {
-			return "wp";
+			return "bp";
 		}
 	}
 

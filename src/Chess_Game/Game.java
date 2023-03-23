@@ -77,7 +77,6 @@ public class Game {
 	private void DecodeInput(String s){
 
 		String[] inputs = s.split(" ");
-		System.out.println(s);
 		String start ;
 		String end ;
 
@@ -100,15 +99,24 @@ public class Game {
 			 end = inputs[1];
 
 			// Convert the starting square (e4) into coordinates (4, 3)
-			int startX = start.charAt(0) - 'a';
-			int startY = Integer.parseInt(start.substring(1)) - 1;
+			int startY = start.charAt(0) - 'a';
+			int startX = 8 - Integer.parseInt(start.substring(1));
 
 			// Convert the ending square (e7) into coordinates (4, 6)
-			int endX = end.charAt(0) - 'a';
-			int endY = Integer.parseInt(end.substring(1)) - 1;
+			int endY = end.charAt(0) - 'a';
+			int endX = 8 - Integer.parseInt(end.substring(1));
 
-			//board.boardSpots[startX][startY].getPiece().canMove(new Spot(startX, startY, null), new Spot(endX, endY, null), board.boardSpots) ;
-			//System.out.println(board.boardSpots[startX][startY].getPiece().canMove(new Spot(startX, startY, null), new Spot(endX, endY, null), board.boardSpots));
+
+
+			if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX, startY), board.getSpot(endX, endY), board.boardSpots)){
+				board.boardSpots[endX][endY].setPiece(board.boardSpots[startX][startY].getPiece());
+				board.boardSpots[startX][startY].setPiece(null);
+				System.out.println("Successfully changed. ");
+				board.draw();
+			} else {
+				System.out.println("Not changed. ");
+			}
+			
 		}else {
 			System.out.println("Invalid input, try again");
 			DecodeInput(scan.nextLine());
@@ -117,29 +125,6 @@ public class Game {
 		
 	}
 
-	public void InputConverter(String input){
-		String[] parts = input.split(" ");
-		String start = parts[0];
-		String end = parts[1];
-
-		// Convert the starting square (e4) into coordinates (4, 3)
-		int startX = start.charAt(0) - 'a';
-		int startY = Integer.parseInt(start.substring(1)) - 1;
-
-		// Convert the ending square (e7) into coordinates (4, 6)
-		int endX = end.charAt(0) - 'a';
-		int endY = Integer.parseInt(end.substring(1)) - 1;
-
-		System.out.println("outside the move method	");
-		//board.getSpot(startX, startY).getPiece().canMove(new Spot(startX, startY, null), new Spot(endX, endY, null), null);
-		if (board.getSpot(startX, startY).getPiece().canMove(new Spot(startX, startY, null), new Spot(endX, endY, null),boardSpots)){
-			System.out.println("inside the move method	");
-		}
-		board.boardSpots[startX][startY].getPiece().canMove(new Spot(startX, startY, null), new Spot(endX, endY, null), board.boardSpots) ;
-	}
-
-
-	
 	//-------------------------------------------------------
 	// start game 
 	public void startGame() {
