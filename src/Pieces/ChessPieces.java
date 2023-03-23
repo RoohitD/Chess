@@ -14,7 +14,7 @@ public abstract class ChessPieces {
 		this.isWhite = isWhite;
 	}
 
-	public abstract boolean canMove(Spot startSpot, Spot endSpot, Object[][] boardSpots);
+	public abstract boolean canMove(Spot startSpot, Spot endSpot, Spot[][] boardSpots);
 
 	public boolean isWhite(){
 		return isWhite;
