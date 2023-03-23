@@ -76,6 +76,8 @@ public class Game {
 	
 	private void DecodeInput(String s){
 		String[] inputs = s.split(" ");
+		System.out.println(s);
+
 		if(inputs.length == 3){
 			if (inputs[2].equalsIgnoreCase("resign")){
 				run= false;
@@ -89,8 +91,31 @@ public class Game {
 			}
 		}
 		//System.out.println(inputs[2]);
+		InputConverter(s);
 		
 	}
+
+	public void InputConverter(String input){
+		String[] parts = input.split(" ");
+		String start = parts[0];
+		String end = parts[1];
+
+		// Convert the starting square (e4) into coordinates (4, 3)
+		int startX = start.charAt(0) - 'a';
+		int startY = Integer.parseInt(start.substring(1)) - 1;
+
+		// Convert the ending square (e7) into coordinates (4, 6)
+		int endX = end.charAt(0) - 'a';
+		int endY = Integer.parseInt(end.substring(1)) - 1;
+
+		System.out.println("outside the move method	");
+		//board.getSpot(startX, startY).getPiece().canMove(new Spot(startX, startY, null), new Spot(endX, endY, null), null);
+		if (board.getSpot(startX, startY).getPiece().canMove(new Spot(startX, startY, null), new Spot(endX, endY, null),boardSpots)){
+			System.out.println("inside the move method	");
+		}
+		board.boardSpots[startX][startY].getPiece().canMove(new Spot(startX, startY, null), new Spot(endX, endY, null), board.boardSpots) ;
+	}
+
 
 	
 	//-------------------------------------------------------
@@ -104,7 +129,6 @@ public class Game {
 				//analized(scan.nextLine())
 				DecodeInput(scan.nextLine());
 				turn ="Black";
-			
 				
 			} else {
 				System.out.println("Black's move: ");
@@ -123,7 +147,6 @@ public class Game {
 			System.out.println("Black's move: ");
 		}
 		
-
 		System.out.println("Game end");
 		
 	}

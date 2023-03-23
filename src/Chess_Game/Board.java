@@ -15,7 +15,7 @@ import Pieces.Rook;
 
 public class Board {
 		
-	private Spot[][] boardSpots;
+	Spot[][] boardSpots;
 
 	public Board(){
 		this.boardSpots = new Spot[8][8];
