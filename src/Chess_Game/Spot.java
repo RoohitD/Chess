@@ -14,6 +14,11 @@ public class Spot {
         this.piece = piece;
     }
 
+    public Spot(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
     public int getX() {
         return x;
     }
