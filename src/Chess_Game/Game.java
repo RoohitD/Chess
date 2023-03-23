@@ -80,7 +80,7 @@ public class Game {
 			if (inputs[2].equalsIgnoreCase("resign")){
 				run= false;
 				System.out.print( turn + " loose");
-			}else if (inputs[2].equalsIgnoreCase("Draw")){
+			}else if (inputs[2].equalsIgnoreCase("Draw?")){
 				run = false ; 
 				System.out.print("Draw");
 			}else {
@@ -176,7 +176,9 @@ public class Game {
 			int endX = end.charAt(0) - 'a';
 			int endY = Integer.parseInt(end.substring(1)) - 1;
 			
-			// boardSpots[startX][startY].getPiece().canMove(new Spot(startX, startY, null), new Spot(endX, endY, null), boardSpots) ;
+
+
+			// boardSpots[startX][startY].getPiece().canMove(new Spot(startX, startY), new Spot(endX, endY), boardSpots) ;
 		}
 
 
