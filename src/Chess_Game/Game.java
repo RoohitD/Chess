@@ -108,7 +108,7 @@ public class Game {
 			int endY = Integer.parseInt(end.substring(1)) - 1;
 
 			//board.boardSpots[startX][startY].getPiece().canMove(new Spot(startX, startY, null), new Spot(endX, endY, null), board.boardSpots) ;
-			System.out.println(board.boardSpots[startX][startY].getPiece().canMove(new Spot(startX, startY, null), new Spot(endX, endY, null), board.boardSpots));
+			//System.out.println(board.boardSpots[startX][startY].getPiece().canMove(new Spot(startX, startY, null), new Spot(endX, endY, null), board.boardSpots));
 		}else {
 			System.out.println("Invalid input, try again");
 			DecodeInput(scan.nextLine());
