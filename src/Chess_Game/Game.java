@@ -61,12 +61,6 @@ public class Game {
 			 end = inputs[1];
 
 			// check if the input is valid
-		
-			// System.out.println(start.length());
-			// if (start.length() >2 || start.length() <2 || end.length() >2 || end.length() <2){
-			// 	System.out.println("Invalid input try agian");
-			// 	DecodeInput(scan.nextLine());
-			// }
 
 			if(start.length() != 2 || end.length() !=2){
 				System.out.println("Invalid input");
