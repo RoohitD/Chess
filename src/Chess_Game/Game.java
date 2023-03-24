@@ -61,10 +61,16 @@ public class Game {
 			int endX = 8 - Integer.parseInt(end.substring(1));
 
 
-			if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX, startY), board.getSpot(endX, endY), board.boardSpots)){
-				board.setPosition(startX, startY, endX, endY, turn);
-			} else {
-				System.out.println("Not changed.");
+			try {
+				if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX, startY), board.getSpot(endX, endY), board.boardSpots)){
+
+					board.setPosition(startX, startY, endX, endY, turn);
+				} else {
+					System.out.println("Not changed.");
+				}
+			} catch (Exception e) {
+				System.out.println("No Chess pieces found");
+				DecodeInput(scan.nextLine());
 			}
 			
 		}else {
