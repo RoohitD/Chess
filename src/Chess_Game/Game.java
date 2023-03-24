@@ -9,13 +9,6 @@ import Pieces.King;
 import Pieces.Pawn;
 
 public class Game {
-	//white king locatio 
-	int wKingX=5;
-	int wKingY=1;
-
-	// blac king location
-	int bKingX=5;
-	int bKingY=8;
 
 	//----------------------------------
 	//initialize 
@@ -36,6 +29,15 @@ public class Game {
 		startGame();
 	}
 	
+	public String  win(){
+		if ( turn == "white"){
+		return "black";
+		}else{
+		return "white";
+		}
+	}
+
+
 	private void DecodeInput(String s){
 
 		String[] inputs = s.split(" ");
@@ -45,7 +47,7 @@ public class Game {
 		if(inputs.length == 3){
 			if (inputs[2].equalsIgnoreCase("resign")){
 				run= false;
-				System.out.print( turn + " loose");
+				System.out.print(  win()+ " win");
 			}else if (inputs[2].equalsIgnoreCase("Draw?")){
 				run = false ; 
 				System.out.print("Draw");
@@ -89,7 +91,7 @@ public class Game {
 						System.out.println("invalid move. it's "+ turn + " turn");
 						DecodeInput(scan.nextLine());
 					}
-					//board.setPosition(startX, startY, endX, endY, turn);
+					
 				} else {
 					System.out.println("Invalid move");
 					DecodeInput(scan.nextLine());
@@ -113,12 +115,11 @@ public class Game {
 			
 			if (turn.equals("white")) {
 				System.out.println("White's move: ");
-				//analized(scan.nextLine())
 				DecodeInput(scan.nextLine());
 				turn ="Black";
 				
 			} else {
-				System.out.print("Black's move: ");
+				System.out.println("Black's move: ");
 				DecodeInput(scan.nextLine());
 				turn = "white";
 			}

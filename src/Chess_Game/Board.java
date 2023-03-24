@@ -96,7 +96,8 @@ public class Board {
 		if(boardSpots[endX][endY].getPiece() == null){
 			boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
 			boardSpots[startX][startY].setPiece(null);
-			System.out.println("Successfully changed.");
+			//System.out.println("Successfully changed.");
+			System.out.println("");
 			draw();
 		} else {
 			if(boardSpots[endX][endY].getPiece().isWhite()){
@@ -116,7 +117,8 @@ public class Board {
 			}
 			boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
 			boardSpots[startX][startY].setPiece(null);
-			System.out.println("Successfully changed.");
+			//System.out.println("Successfully changed.");
+			System.out.println("");
 			draw();
 		}
 		

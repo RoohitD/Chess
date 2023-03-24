@@ -22,7 +22,7 @@ public class King extends ChessPieces{
 		}
 		// Checks if the king will be checked in that position
 		if(isChecked(startSpot, endSpot, board)){
-			System.out.println("Can be checked canMove method");
+			//System.out.println("Can be checked canMove method");
 			return false;
 		}
 
