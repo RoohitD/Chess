@@ -53,6 +53,22 @@ public class Game {
 			 start = inputs[0];
 			 end = inputs[1];
 
+			// check if the input is valid
+		
+			// System.out.println(start.length());
+			// if (start.length() >2 || start.length() <2 || end.length() >2 || end.length() <2){
+			// 	System.out.println("Invalid input try agian");
+			// 	DecodeInput(scan.nextLine());
+			// }
+
+			if(start.length() != 2 || end.length() !=2){
+				System.out.println("Invalid input");
+				while(run){
+					DecodeInput(scan.nextLine());
+				}
+				
+			}
+
 			// Convert the starting square (e4) into coordinates (4, 3)
 			int startY = start.charAt(0) - 'a';
 			int startX = 8 - Integer.parseInt(start.substring(1));
@@ -60,6 +76,7 @@ public class Game {
 			// Convert the ending square (e7) into coordinates (4, 6)
 			int endY = end.charAt(0) - 'a';
 			int endX = 8 - Integer.parseInt(end.substring(1));
+
 
 
 			try {
@@ -78,7 +95,7 @@ public class Game {
 					DecodeInput(scan.nextLine());
 				}
 			} catch (Exception e) {
-				System.out.println("No Chess pieces found, try again");
+				System.out.println("No Chess pieces found, try again ");
 				DecodeInput(scan.nextLine());
 			}
 			
