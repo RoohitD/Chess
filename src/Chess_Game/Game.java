@@ -119,11 +119,12 @@ public class Game {
 			
 			if (turn.equals("white")) {
 				System.out.println("White's move: ");
+				//analized(scan.nextLine())
 				DecodeInput(scan.nextLine());
 				turn ="Black";
 				
 			} else {
-				System.out.println("Black's move: ");
+				System.out.print("Black's move: ");
 				DecodeInput(scan.nextLine());
 				turn = "white";
 			}
