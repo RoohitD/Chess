@@ -6,46 +6,62 @@ public class Queen extends ChessPieces{
 
     public Queen(Boolean isWhite) {
         super(isWhite);
-        //TODO Auto-generated constructor stub
     }
 
     @Override
-    public boolean canMove(Spot startSpot, Spot endSpot, Spot[][] board) {
-        int newX = Math.abs(startSpot.getX() - endSpot.getX());
-		int newY = Math.abs(startSpot.getY() - endSpot.getY());
+    public boolean canMove(Spot startSpot, Spot endSpot, Spot[][] boardSpots) {
+        int startX = startSpot.getX();
+        int startY = startSpot.getY();
+        int endX = endSpot.getX();
+        int endY = endSpot.getY();
+    
+        int dx = Math.abs(endX - startX);
+        int dy = Math.abs(endY - startY);
 
-        if(endSpot.getPiece() != null && endSpot.getPiece().isWhite() ){
+        // check if the move is diagonal or straight
+        if (dx != dy && startX != endX && startY != endY) {
             return false;
         }
-
-        if (newX == 0 || newY == 0 || newX == newY){
-            int xDir;
-            int yDir;
-
-            if(endSpot.getX() - startSpot.getX() > 0){
-                xDir = 1;
+    
+        // check if the path is clear for straight moves
+        if (dx == 0 || dy == 0) {
+            if (startY == endY) {
+                int xDir = (endX - startX) > 0 ? 1 : -1;
+                for (int x = startX + xDir; x != endX; x += xDir) {
+                    if (boardSpots[x][startY].getPiece() != null) {
+                        return false;
+                    }
+                }
             } else {
-                xDir = -1;
+                int yDir = (endY - startY) > 0 ? 1 : -1;
+                for (int y = startY + yDir; y != endY; y += yDir) {
+                    if (boardSpots[startX][y].getPiece() != null) {
+                        return false;
+                    }
+                }
             }
-            if(endSpot.getY() - startSpot.getY() > 0){
-                yDir = 1;
-            } else {
-                yDir = -1;
-            }
-            int i = startSpot.getX() + xDir;
-            int j = startSpot.getY() + yDir;
-            while (i != endSpot.getX() || j != endSpot.getY()){
-                if(board[i][j].getPiece() != null){
+        }
+    
+        // check if the path is clear for diagonal moves
+        else {
+            int xDir = (endX - startX) > 0 ? 1 : -1;
+            int yDir = (endY - startY) > 0 ? 1 : -1;
+            int x = startX + xDir;
+            int y = startY + yDir;
+            while (x != endX && y != endY) {
+                if (boardSpots[x][y].getPiece() != null) {
+                    System.out.println("Path isn't clear diagonally");
                     return false;
                 }
-                i += xDir;
-                j += yDir;
+                x += xDir;
+                y += yDir;
             }
-            return true;
-
         }
-        return false;
+    
+        // return true if the move is legal
+        return true;
     }
+    
 
 
 	public String toString() {

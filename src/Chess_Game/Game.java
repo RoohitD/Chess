@@ -16,59 +16,13 @@ public class Game {
 	Board board = new Board();
 	
 	//---------------------------------------
-	// global varable
+	// global variable
 	
 	String input;
 	String turn= "white";
 	boolean run= true;
 	
-	
-	//int mfRow;
-	//int mfCol; 
-	//int mtRow ; 
-	//int mtCol ;
-	
 
-	
-
-
-
-
-	//----------------------------------------------------------------------------------------------
-		// chess pieces object
-		
-		
-		// white pieces
-		/*
-		 ChessPieces wking = new king ("white", "a4","wK");
-		ChessPieces wpawn1 = new pawn("white", "a7","wP");
-		ChessPieces wpawn2 = new pawn("white", "b7","wP");
-		ChessPieces wpawn3 = new pawn("white", "c7","wP");
-		ChessPieces wpawn4 = new pawn("white", "d7","wP");
-		ChessPieces wpawn5 = new pawn("white", "e7","wP");
-		ChessPieces wpawn6 = new pawn("white", "f7","wP");
-		ChessPieces wpawn7 = new pawn("white", "g7","wP");
-		ChessPieces wpawn8 = new pawn("white", "h7","wP");
-		
-		
-		// Black Pieces
-		
-		ChessPieces bking = new king ("black", "a4", "bK");
-		ChessPieces bpawn1 = new pawn("black", "a7","bP");
-		ChessPieces bpawn2 = new pawn("black", "b7","bP");
-		ChessPieces bpawn3 = new pawn("black", "c7","bP");
-		ChessPieces bpawn4 = new pawn("black", "d7","bP");
-		ChessPieces bpawn5 = new pawn("black", "e7","bP");
-		ChessPieces bpawn6 = new pawn("black", "f7","bP");
-		ChessPieces bpawn7 = new pawn("black", "g7","bP");
-		ChessPieces bpawn8 = new pawn("black", "h7","bP");
-		 */
-		
-		
-	
-		//---------------------------------------------------------------------
-		// constructor
-		
 	public Game(){
 		board.draw();
 		startGame();
@@ -107,22 +61,16 @@ public class Game {
 			int endX = 8 - Integer.parseInt(end.substring(1));
 
 
-
 			if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX, startY), board.getSpot(endX, endY), board.boardSpots)){
-				board.boardSpots[endX][endY].setPiece(board.boardSpots[startX][startY].getPiece());
-				board.boardSpots[startX][startY].setPiece(null);
-				System.out.println("Successfully changed. ");
-				board.draw();
+				board.setPosition(startX, startY, endX, endY, turn);
 			} else {
-				System.out.println("Not changed. ");
+				System.out.println("Not changed.");
 			}
 			
 		}else {
 			System.out.println("Invalid input, try again");
 			DecodeInput(scan.nextLine());
 		}
-		//System.out.println(inputs[2]);
-		
 	}
 
 	//-------------------------------------------------------

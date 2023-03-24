@@ -22,6 +22,7 @@ public class King extends ChessPieces{
 		}
 		// Checks if the king will be checked in that position
 		if(isChecked(startSpot, endSpot, board)){
+			System.out.println("Can be checked canMove method");
 			return false;
 		}
 
@@ -36,11 +37,12 @@ public class King extends ChessPieces{
 			for(int j = 0; j < 8; j++){
 				ChessPieces apiece = board[i][j].getPiece();
 				if(apiece != null && apiece.isWhite() != isWhite && apiece.canMove(startSpot, endSpot, board)){
+					System.out.println("Can be checked");
 					return true;
 				}
 			}
 		}
-
+		System.out.println("Can't be checked");
 		return false;
 	}
 

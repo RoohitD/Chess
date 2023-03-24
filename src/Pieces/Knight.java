@@ -22,7 +22,7 @@ public class Knight extends ChessPieces{
         if ((newX == 1 && newY == 2) || (newX == 2 && newY == 1)) {
             return true;
         }
-
+        
         return false;
     }
 

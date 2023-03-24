@@ -1,5 +1,6 @@
 package Chess_Game;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -16,6 +17,9 @@ import Pieces.Rook;
 public class Board {
 		
 	Spot[][] boardSpots;
+
+	ArrayList<Spot> killedWSpots = new ArrayList<Spot>();
+	ArrayList<Spot> killedBSpots = new ArrayList<Spot>();
 
 	public Board(){
 		this.boardSpots = new Spot[8][8];
@@ -58,7 +62,7 @@ public class Board {
 			boardSpots[7][0] = new Spot(7, 0, new Rook(true));
         	boardSpots[7][1] = new Spot(7, 1, new Knight(true));
         	boardSpots[7][2] = new Spot(7, 2, new Bishop(true));
-			boardSpots[7][3] = new Spot(7, 2, new Queen(true));
+			boardSpots[7][3] = new Spot(7, 3, new Queen(true));
 			boardSpots[7][4] = new Spot(7, 4, new King(true));
 			boardSpots[7][5] = new Spot(7, 5, new Bishop(true));
 			boardSpots[7][6] = new Spot(7, 6, new Knight(true));
@@ -87,4 +91,37 @@ public class Board {
 		System.out.println(" a  b  c  d  e  f  g  h");
 	}
 	
+	public void setPosition(int startX, int startY, int endX, int endY, String turn){
+
+		if(boardSpots[endX][endY].getPiece() == null){
+			boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
+			boardSpots[startX][startY].setPiece(null);
+			System.out.println("Successfully changed.");
+			draw();
+		} else {
+			if(boardSpots[endX][endY].getPiece().isWhite()){
+				killedWSpots.add(boardSpots[endX][endY]);
+				System.out.println(boardSpots[endX][endY] + " get added");
+				  // Remove This Later
+				for(int i = 0; i < killedWSpots.size(); i++){
+					System.out.println("White Killed: " + killedWSpots.get(i).getPiece()); 
+				}
+		
+			} else {
+				killedBSpots.add(boardSpots[endX][endY]);
+				 // Remove This Later
+				for(int i = 0; i < killedBSpots.size(); i++){
+					System.out.println("Black Killed: " + killedBSpots.get(i).getPiece());  
+				}
+			}
+			boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
+			boardSpots[startX][startY].setPiece(null);
+			System.out.println("Successfully changed.");
+			draw();
+		}
+		
+	}
+
+
+
 }
