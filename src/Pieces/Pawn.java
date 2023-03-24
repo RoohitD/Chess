@@ -13,44 +13,47 @@ public class Pawn extends ChessPieces{
 		hasMoved = false;
     }
 
-	@Override
 	public boolean canMove(Spot startSpot, Spot endSpot, Spot[][] board) {
 		int newX = Math.abs(startSpot.getX() - endSpot.getX());
 		int newY = Math.abs(startSpot.getY() - endSpot.getY());
 		int direction;
-
-		//Set the direction of movement for the Pawn
-		if(isWhite == true){
+	
+		// Set the direction of movement for the Pawn
+		if (isWhite) {
 			direction = -1;
 		} else {
 			direction = 1;
 		}
 	
-
 		// Check if the end spot is occupied by a piece of the same color
-		if(endSpot.getPiece() != null && endSpot.getPiece().isWhite() == startSpot.getPiece().isWhite()){
-			//System.out.println("Check if the end spot is occupied by a piece of the same color");
+		if (endSpot.getPiece() != null && endSpot.getPiece().isWhite() == isWhite) {
 			return false;
 		}
-
+	
 		// Check if the pawn is moving straight forward
-		if(startSpot.getX() == endSpot.getX() && board[endSpot.getX()][endSpot.getY()].getPiece() == null){
-			if(endSpot.getY() == startSpot.getY() + direction || (endSpot.getY() == startSpot.getY() + 2 * direction && !hasMoved)){
-				System.out.println("Check if the pawn is moving straight forward");
+		if (newX >= 1 && newY == 0 && endSpot.getPiece() == null) {
+			if (endSpot.getX() == startSpot.getX() + direction) {
 				return true;
+			} else if (endSpot.getX() == startSpot.getX() + 2 * direction && !hasMoved) {
+				Spot intermediateSpot = board[startSpot.getX() + direction][startSpot.getY()];
+				if (intermediateSpot.getPiece() == null) {
+					return true;
+				}
 			}
 		}
-
+	
 		// Check if the pawn is capturing a piece diagonally
-		if(Math.abs(endSpot.getY() - startSpot.getY()) == 1 && endSpot.getX() == startSpot.getX() + direction){
-			// Check if the end spot is occupied by an opposing piece
-			if(endSpot.getPiece() != null && endSpot.getPiece().isWhite() != startSpot.getPiece().isWhite()){
+		if (newX == 1 && newY == 1 && endSpot.getPiece() != null) {
+			if (endSpot.getPiece().isWhite() != isWhite && endSpot.getX() == startSpot.getX() + direction) {
 				return true;
 			}
 		}
-
-		return true;
+	
+		return false;
 	}
+	
+	
+	
 
 	public String toString() {
 		if(isWhite == true){
