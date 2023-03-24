@@ -29,7 +29,7 @@ public class Pawn extends ChessPieces{
 
 		// Check if the end spot is occupied by a piece of the same color
 		if(endSpot.getPiece() != null && endSpot.getPiece().isWhite() == startSpot.getPiece().isWhite()){
-			System.out.println("Check if the end spot is occupied by a piece of the same color");
+			//System.out.println("Check if the end spot is occupied by a piece of the same color");
 			return false;
 		}
 

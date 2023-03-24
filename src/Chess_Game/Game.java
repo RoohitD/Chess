@@ -21,6 +21,7 @@ public class Game {
 	String input;
 	String turn= "white";
 	boolean run= true;
+	boolean boolturn = true;
 	
 
 	public Game(){
@@ -63,13 +64,21 @@ public class Game {
 
 			try {
 				if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX, startY), board.getSpot(endX, endY), board.boardSpots)){
+					if ( board.getSpot(startX,startY).getPiece().isWhite()== boolturn){
+						board.setPosition(startX, startY, endX, endY, turn);
+						boolturn = !boolturn;
 
-					board.setPosition(startX, startY, endX, endY, turn);
+					}else{
+						System.out.println("invalid move. it's "+ turn + " turn");
+						DecodeInput(scan.nextLine());
+					}
+					//board.setPosition(startX, startY, endX, endY, turn);
 				} else {
-					System.out.println("Not changed.");
+					System.out.println("Invalid move. Cannot move a pieces to the same spot");
+					DecodeInput(scan.nextLine());
 				}
 			} catch (Exception e) {
-				System.out.println("No Chess pieces found");
+				System.out.println("No Chess pieces found, try again");
 				DecodeInput(scan.nextLine());
 			}
 			
