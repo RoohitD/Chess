@@ -91,7 +91,7 @@ public class Board {
 		System.out.println(" a  b  c  d  e  f  g  h");
 	}
 	
-	public void setPosition(int startX, int startY, int endX, int endY, String turn){
+	public void setPosition(int startX, int startY, int endX, int endY, String turn, boolean boolturn){
 
 		if(boardSpots[endX][endY].getPiece() == null){
 			boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
@@ -121,9 +121,88 @@ public class Board {
 			System.out.println("");
 			draw();
 		}
-		
+
+
 	}
 
+	public boolean isInCheck(boolean isWhite, Spot[][] board) {
+		// Find the position of the king
+		int kingX = -1, kingY = -1;
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				ChessPieces piece = board[i][j].getPiece();
+				if(piece != null && piece instanceof King && piece.isWhite() == isWhite) {
+					kingX = i;
+					kingY = j;
+					break;
+				}
+			}
+		}
+		if(kingX == -1 || kingY == -1) {
+			// The king is not on the board
+			return false;
+		}
+		// Check if any opposing piece is attacking the king
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				ChessPieces piece = board[i][j].getPiece();
+				if(piece != null && piece.isWhite() != isWhite && piece.canMove(board[i][j], board[kingX][kingY], board)) {
+					return true;
+				}
+			}
+		}
+		// The king is not in check
+		return false;
+	}
+	
+	
+	public boolean isCheckmate(boolean isWhite) {
+		// Check if the King is in check
+		if (!isInCheck(isWhite, boardSpots)) {
+			return false;
+		}
+	
+		// Look for any possible moves that would get the King out of check
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				Spot startSpot = boardSpots[i][j];
+				ChessPieces piece = startSpot.getPiece();
+	
+				// Check if the piece belongs to the player whose King is in check
+				if (piece != null && piece.isWhite() == isWhite) {
+					// Check all possible moves for this piece
+					for (int x = 0; x < 8; x++) {
+						for (int y = 0; y < 8; y++) {
+							Spot endSpot = boardSpots[x][y];
+	
+							// Check if the move is legal
+							if (piece.canMove(startSpot, endSpot, boardSpots)) {
+								// Try making the move
+								ChessPieces capturedPiece = endSpot.getPiece();
+								endSpot.setPiece(piece);
+								startSpot.setPiece(null);
+	
+								// Check if the King is still in check after the move
+								boolean kingInCheck = isInCheck(isWhite, boardSpots);
+	
+								// Undo the move
+								startSpot.setPiece(piece);
+								endSpot.setPiece(capturedPiece);
+	
+								// If the King is no longer in check, the player is not in checkmate
+								if (!kingInCheck) {
+									return false;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	
+		// If no move can get the King out of check, the player is in checkmate
+		return true;
+	}
 
 
 }

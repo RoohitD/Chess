@@ -84,8 +84,15 @@ public class Game {
 			try {
 				if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX, startY), board.getSpot(endX, endY), board.boardSpots)){
 					if ( board.getSpot(startX,startY).getPiece().isWhite()== boolturn){
-						board.setPosition(startX, startY, endX, endY, turn);
+						board.setPosition(startX, startY, endX, endY, turn, boolturn);
 						boolturn = !boolturn;
+						
+						if (board.isInCheck(!boolturn, board.boardSpots)) {
+							System.out.println("Check!");
+						}
+						if(board.isCheckmate(boolturn)){
+							System.out.println("Checkmate!");
+						}
 
 					}else{
 						System.out.println("invalid move. it's "+ turn + " turn");

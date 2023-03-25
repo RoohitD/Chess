@@ -31,18 +31,19 @@ public class King extends ChessPieces{
 
 
 	//Checks if the King will be checked if the piece from the opposite side can be in that position
-	public boolean isChecked(Spot startSpot, Spot endSpot, Spot[][] board){
-		
-		for(int i = 0; i < 8; i++){
-			for(int j = 0; j < 8; j++){
-				ChessPieces apiece = board[i][j].getPiece();
-				if(apiece != null && apiece.isWhite() != isWhite && apiece.canMove(startSpot, endSpot, board)){
-					System.out.println("Can be checked");
-					return true;
+	public boolean isChecked(Spot startSpot, Spot endSpot, Spot[][] board) {
+		// Check if any piece can attack the king in the end spot
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				Spot spot = board[i][j];
+				ChessPieces piece = spot.getPiece();
+				if (piece != null && piece.isWhite() != isWhite) {
+					if (piece.canMove(spot, endSpot, board)) {
+						return true;
+					}
 				}
 			}
 		}
-		System.out.println("Can't be checked");
 		return false;
 	}
 
@@ -54,5 +55,4 @@ public class King extends ChessPieces{
 			return "bK";
 		}
 	}
-
 }
