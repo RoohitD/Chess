@@ -110,6 +110,7 @@ public class Game {
 					System.out.println("Invalid move");
 					DecodeInput(scan.nextLine());
 				}
+			}
 			} catch (Exception e) {
 				System.out.println("No Chess pieces found, try again ");
 				DecodeInput(scan.nextLine());
