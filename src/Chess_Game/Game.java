@@ -22,6 +22,10 @@ public class Game {
 	String turn= "white";
 	boolean run= true;
 	boolean boolturn = true;
+
+	//------------------------------------------
+	int bcheckmate = 1; 
+	int wcheckmate = 1;
 	
 
 	public Game(){
@@ -66,9 +70,10 @@ public class Game {
 
 			if(start.length() != 2 || end.length() !=2){
 				System.out.println("Invalid input");
-				while(run){
-					DecodeInput(scan.nextLine());
-				}
+				startGame();
+				// while(run){
+				// 	DecodeInput(scan.nextLine());
+				// }
 			}
 
 			// Convert the starting square (e4) into coordinates (4, 3)
@@ -92,8 +97,10 @@ public class Game {
 						}
 						if(board.isCheckmate(boolturn)){
 							System.out.println("Checkmate!");
-						}
-
+							System.out.print("Game over");
+							System.out.println( win() + " win");
+							run= false; 
+					
 					}else{
 						System.out.println("invalid move. it's "+ turn + " turn");
 						DecodeInput(scan.nextLine());
