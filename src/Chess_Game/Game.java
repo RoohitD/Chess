@@ -90,8 +90,6 @@ public class Game {
 				if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX, startY), board.getSpot(endX, endY), board.boardSpots)){
 					if (board.getSpot(startX,startY).getPiece().isWhite()== boolturn){
 						board.setPosition(startX, startY, endX, endY, turn, boolturn);
-						
-						
 						if (board.isInCheck(!boolturn, board.boardSpots)) {
 							System.out.println("Check!");
 						}
@@ -101,9 +99,9 @@ public class Game {
 							System.out.println( win() + " win");
 							run= false; 
 						}
-						boolturn = !boolturn;
-					}else{
-						System.out.println("invalid move. it's " + turn + " turn");
+					}
+					else{
+						System.out.println("invalid move. it's "+ turn + " turn");
 						DecodeInput(scan.nextLine());
 					}
 					
@@ -111,7 +109,9 @@ public class Game {
 					System.out.println("Invalid move");
 					DecodeInput(scan.nextLine());
 				}
-			} catch (Exception e) {
+			
+						
+} catch (Exception e) {
 				System.out.println("No Chess pieces found, try again ");
 				DecodeInput(scan.nextLine());
 			}
