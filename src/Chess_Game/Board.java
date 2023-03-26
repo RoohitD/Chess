@@ -92,35 +92,17 @@ public class Board {
 	}
 	
 	public void setPosition(int startX, int startY, int endX, int endY, String turn, boolean boolturn){
-
-		if(boardSpots[endX][endY].getPiece() == null){
-			boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
-			boardSpots[startX][startY].setPiece(null);
-			//System.out.println("Successfully changed.");
+		if(boardSpots[startX][startY].getPiece() instanceof King && ((King) boardSpots[startX][startY].getPiece()).hasMoved() == false){
+			castle(startX, startY, endX, endY);
 			System.out.println("");
 			draw();
 		} else {
-			if(boardSpots[endX][endY].getPiece().isWhite()){
-				killedWSpots.add(boardSpots[endX][endY]);
-				System.out.println(boardSpots[endX][endY] + " get added");
-				  // Remove This Later
-				for(int i = 0; i < killedWSpots.size(); i++){
-					System.out.println("White Killed: " + killedWSpots.get(i).getPiece()); 
-				}
-		
-			} else {
-				killedBSpots.add(boardSpots[endX][endY]);
-				 // Remove This Later
-				for(int i = 0; i < killedBSpots.size(); i++){
-					System.out.println("Black Killed: " + killedBSpots.get(i).getPiece());  
-				}
-			}
 			boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
 			boardSpots[startX][startY].setPiece(null);
-			//System.out.println("Successfully changed.");
 			System.out.println("");
 			draw();
 		}
+			
 	}
 
 	public boolean isInCheck(boolean isWhite, Spot[][] board) {
@@ -202,5 +184,29 @@ public class Board {
 		return true;
 	}
 
+	public void promote(){
+
+	}
+
+	
+
+
+	public void castle(int startX, int startY, int endX, int endY){
+			boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
+			boardSpots[startX][startY].setPiece(null);
+			// Move the rook
+			Spot rookStartSpot, rookEndSpot;
+			if (endY == 2) {
+				// Queenside castle
+				rookStartSpot = getSpot(startX, 0);
+				rookEndSpot = getSpot(startX, 3);
+			} else {
+				// Kingside castle
+				rookStartSpot = getSpot(startX, 7);
+				rookEndSpot = getSpot(startX, 5);
+			}
+			boardSpots[rookEndSpot.getX()][rookEndSpot.getY()].setPiece(boardSpots[rookStartSpot.getX()][rookStartSpot.getY()].getPiece());
+			boardSpots[rookStartSpot.getX()][rookStartSpot.getY()].setPiece(null);
+	}
 
 }
