@@ -64,7 +64,7 @@ public class Game {
 		String[] inputs = s.split(" ");
 		String start ;
 		String end ;
-
+		
 
 		if(inputs.length == 3){
 			start = inputs[0];
@@ -102,12 +102,12 @@ public class Game {
 			else {
 
 			// 	// Convert the starting square (e4) into coordinates (4, 3)
-			// int startY = start.charAt(0) - 'a';
+			 int startY = start.charAt(0) - 'a';
 			 int startX = 8 - Integer.parseInt(start.substring(1));
 
 			// // Convert the ending square (e7) into coordinates (4, 6)
-			// int endY = end.charAt(0) - 'a';
-			// int endX = 8 - Integer.parseInt(end.substring(1));
+			 int endY = end.charAt(0) - 'a';
+			 int endX = 8 - Integer.parseInt(end.substring(1));
 
 			// 	System.out.println(startX);
 			// 	System.out.println(startY);
@@ -115,16 +115,22 @@ public class Game {
 			// 	System.out.println(endY);
 				
 				
-				if (( boolturn) && (startX== 6)){
-
+				if (( boolturn) && (startX== 6) && ((board.boardSpots[startX][startY].getPiece()) instanceof Pawn)){
+					System.out.println("hellow");
 					if (inputs[2].equalsIgnoreCase("B")){
 							upgrade ="B";
 							System.out.println(upgrade + " upgraded");
-							
+
+							System.out.println(startX);
+							System.out.println(startY);
+							System.out.println(endX);
+							System.out.println(endY);
+							//board.promotePawn(new Spot(startX, startY), new Spot(endX, endY), upgrade);
 
 						} else if (inputs[2].equalsIgnoreCase("Q")){
 							upgrade = "Q";
 							System.out.println(upgrade + " upgraded");
+							//board.promotePawn(new Spot(endX, endX), new Spot(endX, endY), upgrade);
 
 						}else if ( inputs[2].equalsIgnoreCase("R")){
 							upgrade = "R";
@@ -135,7 +141,7 @@ public class Game {
 							System.out.println(upgrade + " upgraded");
 						}
 
-				}else if (( boolturn ) && (startX== 6) ){
+				}else if (( boolturn == false ) && (startX== 1) && (board.boardSpots[startX][startY].getPiece() instanceof Pawn)){
 
 					if (inputs[2].equalsIgnoreCase("B")){
 							upgrade ="B";
@@ -185,7 +191,7 @@ public class Game {
 			int endX = 8 - Integer.parseInt(end.substring(1));
 
 
-			if (( boolturn) && (startX== 6)){
+			if (( boolturn== true) && (startX== 6)){
 				System.out.println("please type the promotion as well");
 				DecodeInput(scan.nextLine());
 			}else if ( (boolturn == false) && ( startX == 1)){
