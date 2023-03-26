@@ -4,9 +4,16 @@ import Chess_Game.Spot;
 
 public class Rook extends ChessPieces{
 
+    boolean hasMoved = false;
+
     public Rook(Boolean isWhite) {
         super(isWhite);
     }
+
+    public boolean hasMoved(){
+        return hasMoved;
+    }
+
 
     @Override
     public boolean canMove(Spot startSpot, Spot endSpot, Spot[][] board) {
