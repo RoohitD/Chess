@@ -31,12 +31,31 @@ public class Game {
 		startGame();
 	}
 	
-	public String  win(){
-		if ( turn == "white"){
-		return "black";
-		}else{
-		return "white";
+	//-------------------------------------------------------
+	// start game 
+	public void startGame() {
+
+		while(run){
+			
+			if (turn.equals("white")) {
+				System.out.println("White's move: ");
+				DecodeInput(scan.nextLine());
+				turn ="Black";
+				
+			} else {
+				System.out.println("Black's move: ");
+				DecodeInput(scan.nextLine());
+				turn = "white";
+			}
+		};
+
+
+		while (scan.next() == "resign") {
+			System.out.println("White's Move");
+			scan.next();
+			System.out.println("Black's move: ");
 		}
+		System.out.println("Game end");
 	}
 
 
@@ -48,38 +67,96 @@ public class Game {
 
 
 		if(inputs.length == 3){
+			start = inputs[0];
+			end = inputs[1];
+
+
 			if (inputs[2].equalsIgnoreCase("resign")){
 				run= false;
 				System.out.print(  win()+ " win");
 			}else if (inputs[2].equalsIgnoreCase("Draw?")){
 				run = false ; 
 				System.out.print("Draw");
-			}else if (inputs[2].equalsIgnoreCase("B")){
-				upgrade ="B";
-				start = inputs[0];
-			 	end = inputs[1];
-				DecodeInput(start+" "+end);
-			 } else if (inputs[2].equalsIgnoreCase("Q")){
-				upgrade = "Q";
-				start = inputs[0];
-			 	end = inputs[1];
-				DecodeInput(start+" "+end);
-			}else if ( inputs[2].equalsIgnoreCase("R")){
-				upgrade = "R";
-				start = inputs[0];
-			 	end = inputs[1];
-				DecodeInput(start+" "+end);
-			}else if ( inputs[2].equalsIgnoreCase("N")){
-				upgrade= "N";
-				start = inputs[0];
-			 	end = inputs[1];
-				DecodeInput(start+" "+end);
 			}
+			//else if (inputs[2].equalsIgnoreCase("B")){
+			// 	upgrade ="B";
+				
+			// 	DecodeInput(start+" "+end);
+			// } else if (inputs[2].equalsIgnoreCase("Q")){
+			// 	upgrade = "Q";
+			// 	start = inputs[0];
+			//  	end = inputs[1];
+			// 	DecodeInput(start+" "+end);
+			// }else if ( inputs[2].equalsIgnoreCase("R")){
+			// 	upgrade = "R";
+			// 	start = inputs[0];
+			//  	end = inputs[1];
+			// 	DecodeInput(start+" "+end);
+			// }else if ( inputs[2].equalsIgnoreCase("N")){
+			// 	upgrade= "N";
+			// 	start = inputs[0];
+			//  	end = inputs[1];
+			// 	DecodeInput(start+" "+end);
+			// }
 
-			else
-			 {
-				System.out.println("do you meant Draw?, resign or upgrade");
-				DecodeInput(scan.nextLine());
+			else {
+
+			// 	// Convert the starting square (e4) into coordinates (4, 3)
+			// int startY = start.charAt(0) - 'a';
+			 int startX = 8 - Integer.parseInt(start.substring(1));
+
+			// // Convert the ending square (e7) into coordinates (4, 6)
+			// int endY = end.charAt(0) - 'a';
+			// int endX = 8 - Integer.parseInt(end.substring(1));
+
+			// 	System.out.println(startX);
+			// 	System.out.println(startY);
+			// 	System.out.println(endX);
+			// 	System.out.println(endY);
+				
+				
+				if (( boolturn) && (startX== 6)){
+
+					if (inputs[2].equalsIgnoreCase("B")){
+							upgrade ="B";
+							System.out.println(upgrade + " upgraded");
+							
+
+						} else if (inputs[2].equalsIgnoreCase("Q")){
+							upgrade = "Q";
+							System.out.println(upgrade + " upgraded");
+
+						}else if ( inputs[2].equalsIgnoreCase("R")){
+							upgrade = "R";
+							System.out.println(upgrade + " upgraded");
+
+						}else if ( inputs[2].equalsIgnoreCase("N")){
+							upgrade= "N";
+							System.out.println(upgrade + " upgraded");
+						}
+
+				}else if (( boolturn ) && (startX== 6) ){
+
+					if (inputs[2].equalsIgnoreCase("B")){
+							upgrade ="B";
+							System.out.println(upgrade + " upgraded");
+						} else if (inputs[2].equalsIgnoreCase("Q")){
+							upgrade = "Q";
+							System.out.println(upgrade + " upgraded");
+						}else if ( inputs[2].equalsIgnoreCase("R")){
+							upgrade = "R";
+							System.out.println(upgrade + " upgraded");
+						}else if ( inputs[2].equalsIgnoreCase("N")){
+							upgrade= "N";
+							System.out.println(upgrade + " upgraded");
+						}
+				}else {
+					System.out.println("do you meant Draw?, resign ");
+					DecodeInput(scan.nextLine());
+				}
+
+				//System.out.println("do you meant Draw?, resign ");
+				//DecodeInput(scan.nextLine());
 			}
 
 
@@ -108,11 +185,21 @@ public class Game {
 			int endX = 8 - Integer.parseInt(end.substring(1));
 
 
+			if (( boolturn) && (startX== 6)){
+				System.out.println("please type the promotion as well");
+				DecodeInput(scan.nextLine());
+			}else if ( (boolturn == false) && ( startX == 1)){
+				System.out.println("please type the promotion as well");
+				DecodeInput(scan.nextLine());
+			}
 
 			try {
 				if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX, startY), board.getSpot(endX, endY), board.boardSpots)){
+
 					if (board.getSpot(startX,startY).getPiece().isWhite()== boolturn){
 						board.setPosition(startX, startY, endX, endY, upgrade, boolturn);
+						
+
 						if (board.isInCheck(!boolturn, board.boardSpots)) {
 							System.out.println("Check!");
 						}
@@ -134,8 +221,7 @@ public class Game {
 					DecodeInput(scan.nextLine());
 				}
 			
-						
-} catch (Exception e) {
+			} catch (Exception e) {
 				System.out.println("No Chess pieces found, try again ");
 				DecodeInput(scan.nextLine());
 			}
@@ -147,34 +233,16 @@ public class Game {
 	}
 
 
-	//-------------------------------------------------------
-	// start game 
-	public void startGame() {
-
-		while(run){
-			
-			if (turn.equals("white")) {
-				System.out.println("White's move: ");
-				DecodeInput(scan.nextLine());
-				turn ="Black";
-				
-			} else {
-				System.out.println("Black's move: ");
-				DecodeInput(scan.nextLine());
-				turn = "white";
-			}
-		};
-
-
-		while (scan.next() == "resign") {
-			System.out.println("White's Move");
-			scan.next();
-			System.out.println("Black's move: ");
+	
+	public String  win(){
+		if ( turn == "white"){
+		return "black";
+		}else{
+		return "white";
 		}
-		System.out.println("Game end");
 	}
 
-/*
+/*	
  
 
 	public void upgradePawn(){
