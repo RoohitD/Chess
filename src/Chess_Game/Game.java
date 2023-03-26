@@ -23,13 +23,11 @@ public class Game {
 	boolean run= true;
 	boolean boolturn = true;
 
-	//------------------------------------------
-	int bcheckmate = 1; 
-	int wcheckmate = 1;
 	
 
 	public Game(){
 		board.draw();
+		//upgradePawn();
 		startGame();
 	}
 	
@@ -47,6 +45,7 @@ public class Game {
 		String[] inputs = s.split(" ");
 		String start ;
 		String end ;
+		String upgrade;
 
 		if(inputs.length == 3){
 			if (inputs[2].equalsIgnoreCase("resign")){
@@ -55,10 +54,34 @@ public class Game {
 			}else if (inputs[2].equalsIgnoreCase("Draw?")){
 				run = false ; 
 				System.out.print("Draw");
-			}else {
-				System.out.println("do you meant Draw? or resign");
+			}else if (inputs[2].equalsIgnoreCase("B")){
+				upgrade ="B";
+				start = inputs[0];
+			 	end = inputs[1];
+				DecodeInput(start+" "+end);
+			 } else if (inputs[2].equalsIgnoreCase("Q")){
+				upgrade = "Q";
+				start = inputs[0];
+			 	end = inputs[1];
+				DecodeInput(start+" "+end);
+			}else if ( inputs[2].equalsIgnoreCase("R")){
+				upgrade = "R";
+				start = inputs[0];
+			 	end = inputs[1];
+				DecodeInput(start+" "+end);
+			}else if ( inputs[2].equalsIgnoreCase("N")){
+				upgrade= "N";
+				start = inputs[0];
+			 	end = inputs[1];
+				DecodeInput(start+" "+end);
+			}
+
+			else
+			 {
+				System.out.println("do you meant Draw?, resign or upgrade");
 				DecodeInput(scan.nextLine());
 			}
+
 
 		}else if ( inputs.length == 2){
 			
@@ -123,6 +146,51 @@ public class Game {
 		}
 	}
 
+
+	public void upgradePawn(){
+		
+		System.out.println("please upgrade the pawn");
+		System.out.println("Give location of the pawn and type: \n N for Knight \n Q for Queen \n B for Bishop \n R for Rook ");
+		String s = scan.nextLine();
+		String[] inputs = s.split(" ");
+		String start ;
+		String end ;
+		char upgrade= 'a';
+
+		if(inputs.length == 3){
+
+			start = inputs[0];
+			end = inputs[1];
+			if (inputs[2].equalsIgnoreCase("B")){
+				upgrade ='B';
+			}else if (inputs[2].equalsIgnoreCase("Q")){
+				upgrade = 'Q';
+			}else if ( inputs[2].equalsIgnoreCase("R")){
+				upgrade = 'R';
+			}else if ( inputs[2].equalsIgnoreCase("N")){
+				upgrade= 'N';
+			}else {
+				System.out.println(" invalid input, try agian");
+				upgradePawn();
+			}
+
+			// Convert the starting square (e4) into coordinates (4, 3)
+			int startY = start.charAt(0) - 'a';
+			int startX = 8 - Integer.parseInt(start.substring(1));
+
+			// Convert the ending square (e7) into coordinates (4, 6)
+			int endY = end.charAt(0) - 'a';
+			int endX = 8 - Integer.parseInt(end.substring(1));
+			
+			System.out.println("Startx " + startX + " StartY " + startY +"\n");
+			System.out.println("endx "+ endX + " endY " + endY +"\n");
+			System.out.println(upgrade);
+		}else {
+			System.out.println("invalid input try agian");
+			upgradePawn();
+		}
+	
+	}
 	//-------------------------------------------------------
 	// start game 
 	public void startGame() {
@@ -149,6 +217,7 @@ public class Game {
 		}
 		System.out.println("Game end");
 	}
+
 }
 	
 	
