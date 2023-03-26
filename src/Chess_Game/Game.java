@@ -22,7 +22,7 @@ public class Game {
 	String turn= "white";
 	boolean run= true;
 	boolean boolturn = true;
-
+	String upgrade;
 	
 
 	public Game(){
@@ -45,7 +45,7 @@ public class Game {
 		String[] inputs = s.split(" ");
 		String start ;
 		String end ;
-		String upgrade;
+
 
 		if(inputs.length == 3){
 			if (inputs[2].equalsIgnoreCase("resign")){
@@ -112,7 +112,7 @@ public class Game {
 			try {
 				if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX, startY), board.getSpot(endX, endY), board.boardSpots)){
 					if (board.getSpot(startX,startY).getPiece().isWhite()== boolturn){
-						board.setPosition(startX, startY, endX, endY, turn, boolturn);
+						board.setPosition(startX, startY, endX, endY, upgrade, boolturn);
 						if (board.isInCheck(!boolturn, board.boardSpots)) {
 							System.out.println("Check!");
 						}
@@ -146,6 +146,36 @@ public class Game {
 		}
 	}
 
+
+	//-------------------------------------------------------
+	// start game 
+	public void startGame() {
+
+		while(run){
+			
+			if (turn.equals("white")) {
+				System.out.println("White's move: ");
+				DecodeInput(scan.nextLine());
+				turn ="Black";
+				
+			} else {
+				System.out.println("Black's move: ");
+				DecodeInput(scan.nextLine());
+				turn = "white";
+			}
+		};
+
+
+		while (scan.next() == "resign") {
+			System.out.println("White's Move");
+			scan.next();
+			System.out.println("Black's move: ");
+		}
+		System.out.println("Game end");
+	}
+
+/*
+ 
 
 	public void upgradePawn(){
 		
@@ -191,33 +221,8 @@ public class Game {
 		}
 	
 	}
-	//-------------------------------------------------------
-	// start game 
-	public void startGame() {
-
-		while(run){
-			
-			if (turn.equals("white")) {
-				System.out.println("White's move: ");
-				DecodeInput(scan.nextLine());
-				turn ="Black";
-				
-			} else {
-				System.out.println("Black's move: ");
-				DecodeInput(scan.nextLine());
-				turn = "white";
-			}
-		};
-
-
-		while (scan.next() == "resign") {
-			System.out.println("White's Move");
-			scan.next();
-			System.out.println("Black's move: ");
-		}
-		System.out.println("Game end");
-	}
-
+	
+ */
 }
 	
 	

@@ -91,16 +91,15 @@ public class Board {
 		System.out.println(" a  b  c  d  e  f  g  h");
 	}
 	
-	public void setPosition(int startX, int startY, int endX, int endY, String turn, boolean boolturn){
+	public void setPosition(int startX, int startY, int endX, int endY, String upgrade, boolean boolturn){
 		if(boardSpots[startX][startY].getPiece() instanceof King && ((King) boardSpots[startX][startY].getPiece()).hasMoved() == false){
 			castle(startX, startY, endX, endY);
 			System.out.println("");
 			draw();
+		} else if (boardSpots[startX][startY].getPiece() instanceof Pawn && boardSpots[startX][startY].getPiece().isWhite() == boolturn && endY == 7 || endY == 0) {
+			promotePawn(boardSpots[startX][startY], boardSpots[endX][endY], upgrade);
 		} else {
-			boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
-			boardSpots[startX][startY].setPiece(null);
-			System.out.println("");
-			draw();
+			movePiece(startX, startY, endX, endY);
 		}
 			
 	}
@@ -135,7 +134,14 @@ public class Board {
 		return false;
 	}
 	
-	
+	public void movePiece(int startX, int startY, int endX, int endY){
+		boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
+			boardSpots[startX][startY].setPiece(null);
+			System.out.println("");
+			draw();
+	}
+
+
 	public boolean isCheckmate(boolean isWhite) {
 		// Check if the King is in check
 		if (!isInCheck(isWhite, boardSpots)) {
@@ -184,9 +190,31 @@ public class Board {
 		return true;
 	}
 
-	public void promote(){
+	public void promotePawn(Spot startSpot, Spot endSpot, String promotionPieceType) throws IllegalArgumentException {
+			// Create the new piece based on the promotion piece type
+			ChessPieces newPiece;
+			switch(promotionPieceType) {
+				case "Q":
+					newPiece = new Queen(startSpot.getPiece().isWhite());
+					break;
+				case "B":
+					newPiece = new Bishop(startSpot.getPiece().isWhite());
+					break;
+				case "N":
+					newPiece = new Knight(startSpot.getPiece().isWhite());
+					break;
+				case "R":
+					newPiece = new Rook(startSpot.getPiece().isWhite());
+					break;
+				default:
+                throw new IllegalArgumentException("Invalid promotion piece type");
+			}
+			// Replace the pawn with the new piece at the end spot
+			endSpot.setPiece(newPiece);
+			startSpot.setPiece(null);
+		}
 
-	}
+	
 
 	
 

@@ -46,6 +46,7 @@ public class Pawn extends ChessPieces{
 			} else if (endSpot.getX() == startSpot.getX() + 2 * direction && !hasMoved) {
 				Spot intermediateSpot = board[startSpot.getX() + direction][startSpot.getY()];
 				if (intermediateSpot.getPiece() == null) {
+					setMoved();
 					return true;
 				}
 			}

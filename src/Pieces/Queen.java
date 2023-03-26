@@ -18,6 +18,12 @@ public class Queen extends ChessPieces{
         int dx = Math.abs(endX - startX);
         int dy = Math.abs(endY - startY);
 
+        		// Check if the end spot is occupied by a piece of the same color
+		if (endSpot.getPiece() != null && endSpot.getPiece().isWhite() == isWhite) {
+			return false;
+		}
+
+
         // check if the move is diagonal or straight
         if (dx != dy && startX != endX && startY != endY) {
             return false;
