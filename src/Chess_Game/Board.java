@@ -121,12 +121,6 @@ public class Board {
 			System.out.println("");
 			draw();
 		}
-		if(isCheckmate(boolturn)){
-			System.out.println("Checkmate");
-		} 
-		if (isInCheck(boolturn, boardSpots)){
-			System.out.println("Check");
-		} 
 	}
 
 	public boolean isInCheck(boolean isWhite, Spot[][] board) {

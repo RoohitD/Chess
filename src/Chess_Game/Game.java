@@ -99,6 +99,7 @@ public class Game {
 							System.out.println( win() + " win");
 							run= false; 
 						}
+						boolturn = !boolturn;
 					}
 					else{
 						System.out.println("invalid move. it's "+ turn + " turn");
