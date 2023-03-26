@@ -42,6 +42,7 @@ public class Pawn extends ChessPieces{
 		// Check if the pawn is moving straight forward
 		if (newX >= 1 && newY == 0 && endSpot.getPiece() == null) {
 			if (endSpot.getX() == startSpot.getX() + direction) {
+				setMoved();
 				return true;
 			} else if (endSpot.getX() == startSpot.getX() + 2 * direction && !hasMoved) {
 				Spot intermediateSpot = board[startSpot.getX() + direction][startSpot.getY()];

@@ -102,17 +102,16 @@ public class Game {
 			// Convert the starting square (e4) into coordinates (4, 3)
 			int startY = start.charAt(0) - 'a';
 			int startX = 8 - Integer.parseInt(start.substring(1));
-
 			// Convert the ending square (e7) into coordinates (4, 6)
 			int endY = end.charAt(0) - 'a';
 			int endX = 8 - Integer.parseInt(end.substring(1));
 
-
-
+			
 			try {
 				if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX, startY), board.getSpot(endX, endY), board.boardSpots)){
-					if (board.getSpot(startX,startY).getPiece().isWhite()== boolturn){
+					if (board.getSpot(startX,startY).getPiece().isWhite() == boolturn){
 						board.setPosition(startX, startY, endX, endY, upgrade, boolturn);
+
 						if (board.isInCheck(!boolturn, board.boardSpots)) {
 							System.out.println("Check!");
 						}
@@ -128,14 +127,13 @@ public class Game {
 						System.out.println("invalid move. it's "+ turn + " turn");
 						DecodeInput(scan.nextLine());
 					}
-					
+					System.out.println("It reaches here.");
 				} else {
 					System.out.println("Invalid move");
 					DecodeInput(scan.nextLine());
 				}
-			
 						
-} catch (Exception e) {
+			} catch (Exception e) {
 				System.out.println("No Chess pieces found, try again ");
 				DecodeInput(scan.nextLine());
 			}
