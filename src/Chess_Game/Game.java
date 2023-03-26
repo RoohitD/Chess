@@ -100,8 +100,9 @@ public class Game {
 							System.out.print("Game over");
 							System.out.println( win() + " win");
 							run= false; 
-					
-					}else{
+						}
+					}
+					else{
 						System.out.println("invalid move. it's "+ turn + " turn");
 						DecodeInput(scan.nextLine());
 					}
@@ -110,7 +111,7 @@ public class Game {
 					System.out.println("Invalid move");
 					DecodeInput(scan.nextLine());
 				}
-			}
+			
 			} catch (Exception e) {
 				System.out.println("No Chess pieces found, try again ");
 				DecodeInput(scan.nextLine());
