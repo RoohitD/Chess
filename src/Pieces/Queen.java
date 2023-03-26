@@ -50,7 +50,6 @@ public class Queen extends ChessPieces{
             int y = startY + yDir;
             while (x != endX && y != endY) {
                 if (boardSpots[x][y].getPiece() != null) {
-                    System.out.println("Path isn't clear diagonally");
                     return false;
                 }
                 x += xDir;
