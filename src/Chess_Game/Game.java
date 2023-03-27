@@ -70,6 +70,8 @@ public class Game {
 			start = inputs[0];
 			end = inputs[1];
 
+			// check for the valid move
+			DecodeInput(inputs[0]+ " "+ inputs[1]);
 
 			if (inputs[2].equalsIgnoreCase("resign")){
 				run= false;
@@ -191,10 +193,10 @@ public class Game {
 			int endX = 8 - Integer.parseInt(end.substring(1));
 
 
-			if (( boolturn== true) && (startX== 6)){
+			if (( boolturn== true) && (startX== 1) ){
 				System.out.println("please type the promotion as well");
 				DecodeInput(scan.nextLine());
-			}else if ( (boolturn == false) && ( startX == 1)){
+			}else if ( (boolturn == false) && ( startX == 6)){
 				System.out.println("please type the promotion as well");
 				DecodeInput(scan.nextLine());
 			}
