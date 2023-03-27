@@ -21,6 +21,8 @@ public class Board {
 	ArrayList<Spot> killedWSpots = new ArrayList<Spot>();
 	ArrayList<Spot> killedBSpots = new ArrayList<Spot>();
 
+	ChessPieces capturedPiece;
+
 	public Board(){
 		this.boardSpots = new Spot[8][8];
 		resetBoard();
@@ -91,16 +93,36 @@ public class Board {
 		System.out.println(" a  b  c  d  e  f  g  h");
 	}
 	
-	public void setPosition(int startX, int startY, int endX, int endY, String upgrade, boolean boolturn){
-		if(boardSpots[startX][startY].getPiece() instanceof King && ((King) boardSpots[startX][startY].getPiece()).hasMoved() == false){
-			castle(startX, startY, endX, endY);
-			System.out.println("");
-			draw();
-		} else if (boardSpots[startX][startY].getPiece() instanceof Pawn && boardSpots[startX][startY].getPiece().isWhite() == boolturn && endY == 7 || endY == 0) {
-			promotePawn(boardSpots[startX][startY], boardSpots[endX][endY], upgrade);
+	public void setPosition(int startX, int startY, int endX, int endY, boolean isWhiteTurn){
+		if(boardSpots[startX][startY].getPiece() != null){
+			if(boardSpots[startX][startY].getPiece().isWhite() == isWhiteTurn){
+				if(boardSpots[startX][startY].getPiece().canMove(boardSpots[startX][startY], boardSpots[endX][endY], boardSpots)){	
+
+					if(boardSpots[startX][startY].getPiece() instanceof King && ((King) boardSpots[startX][startY].getPiece()).hasMoved() == false){
+						castle(startX, startY, endX, endY);
+						System.out.println("");
+						draw();
+					}
+					else {
+						capturedPiece = movePiece(startX, startY, endX, endY);
+						if(isInCheck(isWhiteTurn, boardSpots)){
+							System.out.println("Still in Check!");
+							undoMove(startX, startY, endX, endY, capturedPiece);
+							throw new IllegalArgumentException();
+						}
+						if(isInCheck(!isWhiteTurn, boardSpots)){
+							System.out.println("Check!");
+						}
+					}
+				} else {
+					throw new IllegalArgumentException();
+				}
+			} else {
+				throw new IllegalArgumentException();
+			}	
 		} else {
-			movePiece(startX, startY, endX, endY);
-		}
+			throw new NullPointerException();
+		}	
 			
 	}
 
@@ -134,13 +156,57 @@ public class Board {
 		return false;
 	}
 	
-	public void movePiece(int startX, int startY, int endX, int endY){
-			boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
-			boardSpots[startX][startY].setPiece(null);
-			System.out.println("");
-			draw();
+	public ChessPieces movePiece(int startX, int startY, int endX, int endY){
+		capturedPiece = boardSpots[endX][endY].getPiece();
+		boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
+		boardSpots[startX][startY].setPiece(null);
+		System.out.println("");
+		draw();
+		return capturedPiece;
 	}
 
+	public boolean isCheckmated(boolean isWhite) {
+		// Check if the king is in check
+		if (!isInCheck(isWhite, boardSpots)) {
+			return false;
+		}
+	
+		// Try to move all pieces to get out of check
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				Spot startSpot = new Spot(i, j);
+				ChessPieces piece = boardSpots[startSpot.getX()][startSpot.getY()].getPiece();
+	
+				if (piece != null && piece.isWhite() == isWhite) {
+					for (int k = 0; k < 8; k++) {
+						for (int l = 0; l < 8; l++) {
+							Spot endSpot = new Spot(k, l);
+							if (boardSpots[startSpot.getX()][startSpot.getY()].getPiece().canMove(startSpot, endSpot, boardSpots)) {
+								// Try moving the piece
+								ChessPieces capturedPiece = movePiece(startSpot.getX(), startSpot.getY(),endSpot.getX(), endSpot.getY());
+	
+								// Check if the king is still in check
+								boolean stillInCheck = isInCheck(isWhite, boardSpots);
+	
+
+
+								// Undo the move
+								undoMove(startSpot.getX(), startSpot.getY(),endSpot.getX(), endSpot.getY(), capturedPiece);
+	
+								// If the king is no longer in check, return false
+								if (!stillInCheck) {
+									return false;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	
+		// If no move can get out of check, return true
+		return true;
+	}
 
 	public boolean isCheckmate(boolean isWhite) {
 		// Check if the King is in check
@@ -207,17 +273,38 @@ public class Board {
 					newPiece = new Rook(startSpot.getPiece().isWhite());
 					break;
 				default:
-                throw new IllegalArgumentException("Invalid promotion piece type");
+                newPiece = new Queen(startSpot.getPiece().isWhite());
 			}
 			// Replace the pawn with the new piece at the end spot
 			endSpot.setPiece(newPiece);
 			startSpot.setPiece(null);
+	}
+
+	public void undoMove(int startX, int startY, int endX, int endY, ChessPieces capturedPiece){
+		boardSpots[startX][endY].setPiece(boardSpots[endX][endY].getPiece());
+		if (capturedPiece != null) {
+			boardSpots[endX][endY].setPiece(capturedPiece);
+		}
+		if (boardSpots[endX][endY].getPiece() instanceof King && Math.abs(boardSpots[startX][startY].getY() - boardSpots[endX][endY].getY()) == 2){
+			int rookStartCol, rookEndCol;
+			Spot rookStartSpot, rookEndSpot;
+			if (boardSpots[endX][endY].getY() == 2) {
+				// Queen side castling
+				rookStartCol = 0;
+				rookEndCol = 3;
+			} else {
+				// King side castling
+				rookStartCol = 7;
+				rookEndCol = 5;
+			}
+			rookStartSpot = boardSpots[boardSpots[startX][startY].getX()][rookStartCol];
+			rookEndSpot = boardSpots[boardSpots[startX][startY].getX()][rookEndCol];
+			ChessPieces rook = rookEndSpot.getPiece();
+			rookStartSpot.setPiece(rook);
+			rookEndSpot.setPiece(null);
 		}
 
-	
-
-	
-
+	}
 
 	public void castle(int startX, int startY, int endX, int endY){
 			boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
@@ -235,6 +322,33 @@ public class Board {
 			}
 			boardSpots[rookEndSpot.getX()][rookEndSpot.getY()].setPiece(boardSpots[rookStartSpot.getX()][rookStartSpot.getY()].getPiece());
 			boardSpots[rookStartSpot.getX()][rookStartSpot.getY()].setPiece(null);
+	}
+
+	public Spot[][] copyBoard() {
+		Spot[][] copy = new Spot[8][8];
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				ChessPieces p = boardSpots[i][j].getPiece();
+				ChessPieces newPiece = null;
+				if(p != null) {
+					if(p instanceof Pawn) {
+						newPiece = new Pawn(p.isWhite());
+					} else if(p instanceof Knight) {
+						newPiece = new Knight(p.isWhite());
+					} else if(p instanceof Bishop) {
+						newPiece = new Bishop(p.isWhite());
+					} else if(p instanceof Rook) {
+						newPiece = new Rook(p.isWhite());
+					} else if(p instanceof Queen) {
+						newPiece = new Queen(p.isWhite());
+					} else if(p instanceof King) {
+						newPiece = new King(p.isWhite());
+					}
+				}
+				copy[i][j] = new Spot(i, j, newPiece);
+			}
+		}
+		return copy;
 	}
 
 }

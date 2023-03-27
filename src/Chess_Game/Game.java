@@ -3,6 +3,8 @@ package Chess_Game;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import Pieces.ChessPieces;
 import Pieces.King;
@@ -21,9 +23,8 @@ public class Game {
 	String input;
 	String turn= "white";
 	boolean run= true;
-	boolean boolturn = true;
-	String upgrade;
-	
+	boolean isWhiteTurn = true;
+
 
 	public Game(){
 		board.draw();
@@ -37,24 +38,25 @@ public class Game {
 
 		while(run){
 			
-			if (turn.equals("white")) {
+			if (isWhiteTurn) {
 				System.out.println("White's move: ");
-				DecodeInput(scan.nextLine());
+				//DecodeInput(scan.nextLine());
+				convertInput(scan.nextLine());
 				turn ="Black";
 				
 			} else {
 				System.out.println("Black's move: ");
-				DecodeInput(scan.nextLine());
-				turn = "white";
+				//DecodeInput(scan.nextLine());
+				convertInput(scan.nextLine());
+				turn = "White";
 			}
 		};
-
-
+/* 
 		while (scan.next() == "resign") {
-			System.out.println("White's Move");
+			System.out.print("White's Move");
 			scan.next();
-			System.out.println("Black's move: ");
-		}
+			System.out.print("Black's move: ");
+		}*/
 		System.out.println("Game end");
 	}
 
@@ -62,17 +64,22 @@ public class Game {
 	private void DecodeInput(String s){
 
 		String[] inputs = s.split(" ");
-		String start ;
-		String end ;
+		String start = inputs[0];
+		String end = inputs[1];
 		
 
+		// Convert the starting square (e4) into coordinates (4, 3)
+		int startY = start.charAt(0) - 'a';
+		int startX = 8 - Integer.parseInt(start.substring(1));
+
+		// Convert the ending square (e7) into coordinates (4, 6)
+		int endY = end.charAt(0) - 'a';
+		int endX = 8 - Integer.parseInt(end.substring(1));
+			   
+
 		if(inputs.length == 3){
-			start = inputs[0];
-			end = inputs[1];
-
-			// check for the valid move
-			DecodeInput(inputs[0]+ " "+ inputs[1]);
-
+			
+			String upgrade;
 			if (inputs[2].equalsIgnoreCase("resign")){
 				run= false;
 				System.out.print(  win()+ " win");
@@ -80,164 +87,61 @@ public class Game {
 				run = false ; 
 				System.out.print("Draw");
 			}
-			//else if (inputs[2].equalsIgnoreCase("B")){
-			// 	upgrade ="B";
-				
-			// 	DecodeInput(start+" "+end);
-			// } else if (inputs[2].equalsIgnoreCase("Q")){
-			// 	upgrade = "Q";
-			// 	start = inputs[0];
-			//  	end = inputs[1];
-			// 	DecodeInput(start+" "+end);
-			// }else if ( inputs[2].equalsIgnoreCase("R")){
-			// 	upgrade = "R";
-			// 	start = inputs[0];
-			//  	end = inputs[1];
-			// 	DecodeInput(start+" "+end);
-			// }else if ( inputs[2].equalsIgnoreCase("N")){
-			// 	upgrade= "N";
-			// 	start = inputs[0];
-			//  	end = inputs[1];
-			// 	DecodeInput(start+" "+end);
-			// }
+			else if (inputs[2].equalsIgnoreCase("B")){
+			 	upgrade ="B";
+			 	//DecodeInput(start+" "+end);
+			 } else if (inputs[2].equalsIgnoreCase("Q")){
+			 	upgrade = "Q";
+			 	//DecodeInput(start+" "+end);
+			 }else if ( inputs[2].equalsIgnoreCase("R")){
+			 	upgrade = "R";
+
+			 	//DecodeInput(start+" "+end);
+			 }else if ( inputs[2].equalsIgnoreCase("N")){
+			 	upgrade= "N";
+			 	//DecodeInput(start+" "+end);
+			 }
+			 
 
 			else {
-
-			// 	// Convert the starting square (e4) into coordinates (4, 3)
-			 int startY = start.charAt(0) - 'a';
-			 int startX = 8 - Integer.parseInt(start.substring(1));
-
-			// // Convert the ending square (e7) into coordinates (4, 6)
-			 int endY = end.charAt(0) - 'a';
-			 int endX = 8 - Integer.parseInt(end.substring(1));
-
-			// 	System.out.println(startX);
-			// 	System.out.println(startY);
-			// 	System.out.println(endX);
-			// 	System.out.println(endY);
-				
-				
-				if (( boolturn) && (startX== 6) && ((board.boardSpots[startX][startY].getPiece()) instanceof Pawn)){
-					System.out.println("hellow");
-					if (inputs[2].equalsIgnoreCase("B")){
-							upgrade ="B";
-							System.out.println(upgrade + " upgraded");
-
-							System.out.println(startX);
-							System.out.println(startY);
-							System.out.println(endX);
-							System.out.println(endY);
-							//board.promotePawn(new Spot(startX, startY), new Spot(endX, endY), upgrade);
-
-						} else if (inputs[2].equalsIgnoreCase("Q")){
-							upgrade = "Q";
-							System.out.println(upgrade + " upgraded");
-							//board.promotePawn(new Spot(endX, endX), new Spot(endX, endY), upgrade);
-
-						}else if ( inputs[2].equalsIgnoreCase("R")){
-							upgrade = "R";
-							System.out.println(upgrade + " upgraded");
-
-						}else if ( inputs[2].equalsIgnoreCase("N")){
-							upgrade= "N";
-							System.out.println(upgrade + " upgraded");
-						}
-
-				}else if (( boolturn == false ) && (startX== 1) && (board.boardSpots[startX][startY].getPiece() instanceof Pawn)){
-
-					if (inputs[2].equalsIgnoreCase("B")){
-							upgrade ="B";
-							System.out.println(upgrade + " upgraded");
-						} else if (inputs[2].equalsIgnoreCase("Q")){
-							upgrade = "Q";
-							System.out.println(upgrade + " upgraded");
-						}else if ( inputs[2].equalsIgnoreCase("R")){
-							upgrade = "R";
-							System.out.println(upgrade + " upgraded");
-						}else if ( inputs[2].equalsIgnoreCase("N")){
-							upgrade= "N";
-							System.out.println(upgrade + " upgraded");
-						}
-				}else {
-					System.out.println("do you meant Draw?, resign ");
-					DecodeInput(scan.nextLine());
-				}
-
-				//System.out.println("do you meant Draw?, resign ");
-				//DecodeInput(scan.nextLine());
-			}
-
-
-		}else if ( inputs.length == 2){
+	
 			
-			// setting the values
-			 start = inputs[0];
-			 end = inputs[1];
-
-			// check if the input is valid
-
-			if(start.length() != 2 || end.length() !=2){
-				System.out.println("Invalid input");
-				startGame();
-				// while(run){
-				// 	DecodeInput(scan.nextLine());
-				// }
-			}
-
-			// Convert the starting square (e4) into coordinates (4, 3)
-			int startY = start.charAt(0) - 'a';
-			int startX = 8 - Integer.parseInt(start.substring(1));
-			// Convert the ending square (e7) into coordinates (4, 6)
-			int endY = end.charAt(0) - 'a';
-			int endX = 8 - Integer.parseInt(end.substring(1));
-
-
-			if (( boolturn== true) && (startX== 1) ){
-				System.out.println("please type the promotion as well");
-				DecodeInput(scan.nextLine());
-			}else if ( (boolturn == false) && ( startX == 6)){
-				System.out.println("please type the promotion as well");
-				DecodeInput(scan.nextLine());
-			}
-
-			try {
-				if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX, startY), board.getSpot(endX, endY), board.boardSpots)){
-					if (board.getSpot(startX,startY).getPiece().isWhite()== boolturn){
-						board.setPosition(startX, startY, endX, endY, upgrade, boolturn);
-						if (board.isInCheck(!boolturn, board.boardSpots)) {
-							System.out.println("Check!");
+				try {
+					if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX, startY), board.getSpot(endX, endY), board.boardSpots)){
+						if (board.getSpot(startX,startY).getPiece().isWhite()== isWhiteTurn){
+							board.setPosition(startX, startY, endX, endY, isWhiteTurn);
+							if (board.isInCheck(!isWhiteTurn, board.boardSpots)) {
+								System.out.println("Check!");
+							}
+							if(board.isCheckmate(!isWhiteTurn)){
+								System.out.println("Checkmate!");
+								System.out.print("Game over");
+								System.out.println( win() + " win");
+								run= false; 
+							}
+							isWhiteTurn = !isWhiteTurn;
 						}
-						if(board.isCheckmate(!boolturn)){
-							System.out.println("Checkmate!");
-							System.out.print("Game over");
-							System.out.println( win() + " win");
-							run= false; 
+						else{
+							System.out.println("invalid move. it's "+ turn + " turn");
+							DecodeInput(scan.nextLine());
 						}
-						boolturn = !boolturn;
-					}
-					else{
-						System.out.println("invalid move. it's "+ turn + " turn");
-						DecodeInput(scan.nextLine());
-					}
-					System.out.println("It reaches here.");
+						System.out.println("It reaches here.");
 				} else {
-					System.out.println("Invalid move");
-					DecodeInput(scan.nextLine());
+						System.out.println("Invalid move");
+						DecodeInput(scan.nextLine());
 				}
-			
+				
 						
-} catch (Exception e) {
+			} catch (Exception e) {
 				System.out.println("No Chess pieces found, try again ");
 				DecodeInput(scan.nextLine());
 			}
-			
-		}else {
+		} 	
+			} else {
 			System.out.println("Invalid input, try again");
 			DecodeInput(scan.nextLine());
+			}
 		}
-	}
-
-
 	
 	public String  win(){
 		if ( turn == "white"){
@@ -247,55 +151,68 @@ public class Game {
 		}
 	}
 
-/*	
+
+	private void convertInput(String s){
+		String input = s.trim();
+		String start;
+		String end;
+		String promote;
+		String[] parts;
  
-
-	public void upgradePawn(){
-		
-		System.out.println("please upgrade the pawn");
-		System.out.println("Give location of the pawn and type: \n N for Knight \n Q for Queen \n B for Bishop \n R for Rook ");
-		String s = scan.nextLine();
-		String[] inputs = s.split(" ");
-		String start ;
-		String end ;
-		char upgrade= 'a';
-
-		if(inputs.length == 3){
-
-			start = inputs[0];
-			end = inputs[1];
-			if (inputs[2].equalsIgnoreCase("B")){
-				upgrade ='B';
-			}else if (inputs[2].equalsIgnoreCase("Q")){
-				upgrade = 'Q';
-			}else if ( inputs[2].equalsIgnoreCase("R")){
-				upgrade = 'R';
-			}else if ( inputs[2].equalsIgnoreCase("N")){
-				upgrade= 'N';
-			}else {
-				System.out.println(" invalid input, try agian");
-				upgradePawn();
-			}
-
-			// Convert the starting square (e4) into coordinates (4, 3)
-			int startY = start.charAt(0) - 'a';
-			int startX = 8 - Integer.parseInt(start.substring(1));
-
-			// Convert the ending square (e7) into coordinates (4, 6)
-			int endY = end.charAt(0) - 'a';
-			int endX = 8 - Integer.parseInt(end.substring(1));
-			
-			System.out.println("Startx " + startX + " StartY " + startY +"\n");
-			System.out.println("endx "+ endX + " endY " + endY +"\n");
-			System.out.println(upgrade);
-		}else {
-			System.out.println("invalid input try agian");
-			upgradePawn();
+		parts = input.split(" ");
+		start = parts[0];
+		end = parts[1];
+		promote = "";
+		if(parts.length == 3){
+			promote = parts[2];
 		}
-	
-	}
-	
- */
-}
+		// Convert the starting square (e4) into coordinates (4, 3)
+		//System.out.println("This is input: start-" + start + " end-" + end + " promotion-" + promotion + ".");
+		int startY = start.charAt(0) - 'a';
+		int startX = 8 - Integer.parseInt(start.substring(1));
+			
+		// Convert the ending square (e7) into coordinates (4, 6)
+		int endY = end.charAt(0) - 'a';
+		int endX = 8 - Integer.parseInt(end.substring(1));
+					
+		ChessPieces piece = board.getSpot(startX, endY).getPiece();
+
+		if(promote.toLowerCase().compareTo("resign") == 0){
+			run = false;
+		} else if(promote.toLowerCase().compareTo("draw?") == 0){
+			if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX,startY), board.getSpot(endX,endY), board.boardSpots)){
+				run = false;
+				System.out.println("Draw");
+			} else {
+				System.out.println("Invalid Input. Try Again");
+				convertInput(scan.next());
+			}
+		} else if(parts.length == 3 && board.getSpot(startX, startY).getPiece() instanceof Pawn && endX == (piece.isWhite() ? 0 : 7) && (parts[2].equals("N") || (parts[2].equals("B") || parts[2].equals("R") || parts[2].equals("Q")))){
+			board.promotePawn(board.getSpot(startX, startY), board.getSpot(endX, endY), promote);
+		} else if(parts.length == 2){
+		
+				try {
+					if (board.getSpot(startX, startY).getPiece() instanceof Pawn && endX == (piece.isWhite() ? 0 : 7)) {
+						board.promotePawn(board.getSpot(startX, startY), board.getSpot(endX, endY), promote);
+						board.draw();
+						isWhiteTurn = !isWhiteTurn;
+					} else {
+						board.setPosition(startX, startY, endX, endY, isWhiteTurn);
+						isWhiteTurn = !isWhiteTurn;
+					}					
+					} catch (IllegalArgumentException e) {
+						System.out.println("Invalid Move. Try Again.");
+						convertInput(scan.nextLine());
+					} catch (NullPointerException e) {
+						System.out.println("No Piece in that Spot. Try Again");
+						convertInput(scan.nextLine());
+					} 
+			} else {
+					System.out.print("Invalid Input. Try Again: ");
+					convertInput(scan.nextLine());
+			}
+		}		
+} 
+
 	
 	
