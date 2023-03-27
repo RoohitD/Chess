@@ -1,5 +1,4 @@
 package Chess_Game;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -13,6 +12,16 @@ import Pieces.Queen;
 import Pieces.Rook;
 
 //import java.lang.reflect.Array;
+
+/**
+ * this is a board class.
+ * @author Rohit and Basu 
+ * @method <ul> 
+ * <li>Reset Board
+ *  <li>get spot 
+ *  <li>draw <li>  movePiece<li> castle <li> undo move<li>  promotepawn <li>  castle 
+ *  <li> isinCheck
+ */
 
 public class Board {
 		
@@ -32,7 +41,10 @@ public class Board {
 		return boardSpots[x][y];
 	}
 
-
+	
+	/**
+	 * this reset the board. it will put the chess pieces to the starting postion.
+	 */
 	private void resetBoard() {
 
 			//Create Black Pieces
@@ -72,7 +84,10 @@ public class Board {
 			
 	}
 	
-	// Method to draw the Chess board
+	
+	/**
+	 * Method to draw the Chess board
+	 */
 	public void draw(){
 		int z = 8;
 		for (int i = 0; i < 8; i++) {
@@ -92,6 +107,15 @@ public class Board {
 		}
 		System.out.println(" a  b  c  d  e  f  g  h");
 	}
+	
+	/**
+	 * 
+	 * @param startX 
+	 * @param startY
+	 * @param endX
+	 * @param endY
+	 * @param isWhiteTurn
+	 */
 	
 	public void setPosition(int startX, int startY, int endX, int endY, boolean isWhiteTurn){
 		if(boardSpots[startX][startY].getPiece() != null){
@@ -126,6 +150,13 @@ public class Board {
 			
 	}
 
+	
+	/**
+	 * this will check if the king check position
+	 * @param isWhite what color is the pieces 
+	 * @param board check board to check if the king is in check
+	 * @return true or false accordingly
+	 */
 	public boolean isInCheck(boolean isWhite, Spot[][] board) {
 		// Find the position of the king
 		int kingX = -1, kingY = -1;
@@ -156,6 +187,14 @@ public class Board {
 		return false;
 	}
 	
+	/**
+	 * 	 moved the pieces for one starting x y postion to end x y positon
+	 * @param startX xcordinate of  pieces that is getting moved
+	 * @param startY Ycordinate of a pieces that is getting moved
+	 * @param endX  xcordinate of  pieces where the pieces is being moved
+	 * @param endY Ycordinate of  pieces where the pieces is being moved
+	 * @return return the capture pieces
+	 */
 	public ChessPieces movePiece(int startX, int startY, int endX, int endY){
 		capturedPiece = boardSpots[endX][endY].getPiece();
 		boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
@@ -208,6 +247,11 @@ public class Board {
 		return true;
 	}
 
+	/**
+	 * check the and return if the checkmate happen
+	 * @param isWhite color of the pieces
+	 * @return true or false accordingly
+	 */
 	public boolean isCheckmate(boolean isWhite) {
 		// Check if the King is in check
 		if (!isInCheck(isWhite, boardSpots)) {
@@ -255,6 +299,13 @@ public class Board {
 		// If no move can get the King out of check, the player is in checkmate
 		return true;
 	}
+	
+	/**
+	 * promot the pawn according to the letter and moved into the endspot 
+	 * @param startSpot start spot of a pieces 
+	 * @param endSpot   end spot of a pieces 
+	 * @param promotionPieceType letter that denote the pormotion pieces
+	 */
 
 	public void promotePawn(Spot startSpot, Spot endSpot, String promotionPieceType){
 			// Create the new piece based on the promotion piece type
@@ -280,6 +331,15 @@ public class Board {
 			startSpot.setPiece(null);
 	}
 
+	
+	/**
+	 * 
+	 * @param startX
+	 * @param startY
+	 * @param endX
+	 * @param endY
+	 * @param capturedPiece
+	 */
 	public void undoMove(int startX, int startY, int endX, int endY, ChessPieces capturedPiece){
 		boardSpots[startX][endY].setPiece(boardSpots[endX][endY].getPiece());
 		if (capturedPiece != null) {
@@ -306,6 +366,13 @@ public class Board {
 
 	}
 
+	/**
+	 *  castle 
+	 * @param startX
+	 * @param startY
+	 * @param endX
+	 * @param endY
+	 */
 	public void castle(int startX, int startY, int endX, int endY){
 			boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
 			boardSpots[startX][startY].setPiece(null);

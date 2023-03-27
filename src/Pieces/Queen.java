@@ -2,12 +2,24 @@ package Pieces;
 
 import Chess_Game.Spot;
 
+
+/**
+ * Queen pieces of a chessPieces kind
+ * @author Rohit and Basu
+ * @method 
+ * <ul>
+ * <li> CanMove
+ * 
+ */
 public class Queen extends ChessPieces{
 
     public Queen(Boolean isWhite) {
         super(isWhite);
     }
 
+    /**
+     * check whether the move is valid Queen move
+     */
     @Override
     public boolean canMove(Spot startSpot, Spot endSpot, Spot[][] boardSpots) {
         int startX = startSpot.getX();

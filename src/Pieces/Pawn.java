@@ -4,6 +4,16 @@ import java.util.ArrayList;
 
 import Chess_Game.Spot;
 
+
+/**
+ * Queen pieces of a chessPieces kind
+ * @author Rohit and Basu
+ * @method 
+ * <ul>
+ * <li> CanMove
+ * <li> isEnPassant
+ * 
+ */
 public class Pawn extends ChessPieces{
 	
 	private boolean hasMoved;
@@ -21,7 +31,9 @@ public class Pawn extends ChessPieces{
     public void setMoved() {
         this.hasMoved = true;
     }
-
+    /**
+     * check the valid move for the pawn accoriding to the color of the pieces
+     */
 	public boolean canMove(Spot startSpot, Spot endSpot, Spot[][] board) {
 		int newX = Math.abs(startSpot.getX() - endSpot.getX());
 		int newY = Math.abs(startSpot.getY() - endSpot.getY());
@@ -68,7 +80,13 @@ public class Pawn extends ChessPieces{
 		return false;
 	}
 	
-	
+	/**
+	 * chekc if it is the enpassant move
+	 * @param startSpot starting spot of a pawn 
+	 * @param endSpot  ending spot of a pawn 
+	 * @param board  board 
+	 * @return true or false
+	 */
     public boolean isEnPassant(Spot startSpot, Spot endSpot, Spot[][] board) {
 		int startX = startSpot.getX();
 		int startY = startSpot.getY();

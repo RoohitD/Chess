@@ -1,13 +1,24 @@
 package Pieces;
-
 import Chess_Game.Spot;
 
+/**
+ * 
+ * @author Rohit and Basu 
+ * @method 
+ * <ul> 
+ * <li>CanMove
+ * <li>
+ */
 public class Bishop extends ChessPieces{
 
     public Bishop(Boolean isWhite) {
         super(isWhite);
     }
-
+    
+    /**
+     * this will check if the pieces is valid move 
+     * 
+     */
     @Override
     public boolean canMove(Spot startSpot, Spot endSpot, Spot[][] board) {
         int startX = startSpot.getX();
