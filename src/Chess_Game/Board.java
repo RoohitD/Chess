@@ -135,7 +135,7 @@ public class Board {
 	}
 	
 	public void movePiece(int startX, int startY, int endX, int endY){
-		boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
+			boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
 			boardSpots[startX][startY].setPiece(null);
 			System.out.println("");
 			draw();
@@ -190,7 +190,7 @@ public class Board {
 		return true;
 	}
 
-	public void promotePawn(Spot startSpot, Spot endSpot, String promotionPieceType) throws IllegalArgumentException {
+	public void promotePawn(Spot startSpot, Spot endSpot, String promotionPieceType){
 			// Create the new piece based on the promotion piece type
 			ChessPieces newPiece;
 			switch(promotionPieceType) {
