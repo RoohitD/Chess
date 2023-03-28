@@ -112,8 +112,9 @@ public class Pawn extends ChessPieces{
 	 */
 	public boolean canEnPassant(Spot startSpot, Spot endSpot, boolean isWhiteTurn, Board board) {
 		boolean result = false;
-
-		if (endSpot.getPiece() == null && startSpot.getX() != endSpot.getX()){
+		if(board.lastMovedPiecefrom== null && board.lastMovedPieceto == null ){
+			result = false;
+		} else if (endSpot.getPiece() == null && startSpot.getX() != endSpot.getX()){
 			if(board.lastMovedPieceto.getPiece() instanceof Pawn && (board.lastMovedPieceto.getY() - board.lastMovedPiecefrom.getY()== 2 && board.lastMovedPieceto.getX() - board.lastMovedPiecefrom.getX() == 0) && board.lastMovedPieceto.getPiece().isWhite() != isWhiteTurn){
 				ChessPieces leftPiece = board.boardSpots[board.lastMovedPieceto.getX()-1][board.lastMovedPieceto.getY()].getPiece();
 				ChessPieces rightPiece = board.boardSpots[board.lastMovedPieceto.getX()+1][board.lastMovedPieceto.getY()].getPiece();

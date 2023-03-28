@@ -116,7 +116,7 @@ public class Game {
 				System.out.println("Draw");
 			} else {
 				System.out.println("Invalid Input. Try Again");
-				convertInput(scan.next());
+				convertInput(scan.nextLine());
 			}
 		} else if(parts.length == 3 && board.getSpot(startX, startY).getPiece() instanceof Pawn && endX == (piece.isWhite() ? 0 : 7) && (parts[2].equals("N") || (parts[2].equals("B") || parts[2].equals("R") || parts[2].equals("Q")))){
 			board.promotePawn(board.getSpot(startX, startY), board.getSpot(endX, endY), promote);
