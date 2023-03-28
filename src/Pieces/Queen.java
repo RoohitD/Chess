@@ -5,22 +5,31 @@ import Chess_Game.Spot;
 
 
 /**
- * Queen pieces of a chessPieces kind
- * @author Rohit and Basu
+ * Queen pieces of a ChessPieces kind
+ * @author Rohit
  * @method 
  * <ul>
  * <li> CanMove
+ * <li> toString
  * 
  */
 public class Queen extends ChessPieces{
 
+    /**
+	 * Constructor for the Queen
+	 * @param isWhite
+	 */
     public Queen(Boolean isWhite) {
         super(isWhite);
     }
 
     /**
-     * check whether the move is valid Queen move
-     */
+    * this method checks if the move is valid for the Queen
+    * @param startSpot the startSpot of the Queen
+    * @param endSpot the endSpot for the Queen
+    * @param board the current board instance
+    * @return true or false
+    */
     @Override
     public boolean canMove(Spot startSpot, Spot endSpot, Board board) {
         int startX = startSpot.getX();
@@ -84,7 +93,10 @@ public class Queen extends ChessPieces{
     }
     
 
-
+    /**
+     * @param No param
+     * @return String the initial of the Piece based on their color
+     */
 	public String toString() {
 		if(isWhite == true){
 			return "wQ";

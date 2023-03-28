@@ -5,22 +5,31 @@ import Chess_Game.Spot;
 
 /**
  * Knight pieces of a chessPieces kind
- * @author Rohit and Basu
+ * @author Rohit 
  * @method 
  * <ul>
  * <li> CanMove
+ * <li> toString
  * 
  * 
  */
 public class Knight extends ChessPieces{
 
+    /**
+	 * Constructor for the Knight
+	 * @param isWhite
+	 */
     public Knight(Boolean isWhite) {
         super(isWhite);
     }
 
     /**
-     * check the valid move for the knight
-     */
+	 * check if it is a valid move for Knight
+	 * @param startSpot staritng spot of the Knight
+	 * @param endSpot ending spot of the Knight
+	 * @param board the current board instance
+	 * @return true or false 
+	 */
     @Override
     public boolean canMove(Spot startSpot, Spot endSpot, Board board) {
 		int newX = Math.abs(startSpot.getX() - endSpot.getX());
@@ -43,7 +52,10 @@ public class Knight extends ChessPieces{
         return false;
     }
 
-
+    /**
+     * @param No param
+     * @return String the initial of the Piece based on their color
+     */
 	public String toString() {
 		if(isWhite == true){
 			return "wN";

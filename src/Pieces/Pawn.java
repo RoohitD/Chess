@@ -7,7 +7,7 @@ import Chess_Game.Spot;
 
 
 /**
- * Queen pieces of a chessPieces kind
+ * Queen pieces of a ChessPieces kind
  * @author Rohit and Basu
  * @method 
  * <ul>
@@ -27,22 +27,30 @@ public class Pawn extends ChessPieces{
     }
 
 
+	/**
+	 * returns the pawn movement if it has moved once especially to keep track of it's first two spot move
+	 * @return boolean
+	 */
     public boolean hasMovedOnce() {
         return hasMoved;
     }
 
+	/**
+	 * Sets the move of the pawn to true if it has moved. 
+	 */
     public void setMoved() {
         this.hasMoved = true;
     }
-<<<<<<< HEAD
 
-	public boolean canMove(Spot startSpot, Spot endSpot, Board board) {
-=======
+	
     /**
-     * check the valid move for the pawn accoriding to the color of the pieces
-     */
-	public boolean canMove(Spot startSpot, Spot endSpot, Spot[][] board) {
->>>>>>> origin/master
+    * this method checks if the move is valid for the Pawn
+    * @param startSpot the startSpot of the Pawn
+    * @param endSpot the endSpot for the Pawn
+    * @param board the current board instance
+    * @return true or false
+    */
+	public boolean canMove(Spot startSpot, Spot endSpot, Board board) {
 		int newX = Math.abs(startSpot.getX() - endSpot.getX());
 		int newY = Math.abs(startSpot.getY() - endSpot.getY());
 		int direction;
@@ -93,6 +101,15 @@ public class Pawn extends ChessPieces{
 		return false;
 		
 	}	
+
+	/**
+	 * check if it is the enpassant move
+	 * @param startSpot starting spot of a pawn 
+	 * @param endSpot  ending spot of a pawn 
+	 * @param isWhiteTurn the current turn
+	 * @param board  board 
+	 * @return true or false
+	 */
 	public boolean canEnPassant(Spot startSpot, Spot endSpot, boolean isWhiteTurn, Board board) {
 		boolean result = false;
 
@@ -115,58 +132,11 @@ public class Pawn extends ChessPieces{
 		} 
 		return result;
 	}
-<<<<<<< HEAD
 
-
-    public boolean isEnPassant(Spot startSpot, Spot endSpot, Board board) {
-=======
-	
-	/**
-	 * chekc if it is the enpassant move
-	 * @param startSpot starting spot of a pawn 
-	 * @param endSpot  ending spot of a pawn 
-	 * @param board  board 
-	 * @return true or false
-	 */
-    public boolean isEnPassant(Spot startSpot, Spot endSpot, Spot[][] board) {
->>>>>>> origin/master
-		int startX = startSpot.getX();
-		int startY = startSpot.getY();
-		int endX = endSpot.getX();
-		int endY = endSpot.getY();
-		int direction;
-		
-
-		int x1 = startSpot.getX();
-		int y1 = startSpot.getY();
-		int x2 = endSpot.getX();
-		int y2 = endSpot.getY();
-	
-		ChessPieces endPiece = board.boardSpots[x2][y2].getPiece();
-
-		if (endPiece == null && x1 != x2) {
-			ChessPieces leftPiece = board.boardSpots[x2-1][y2].getPiece();
-			ChessPieces rightPiece = board.boardSpots[x2+1][y2].getPiece();
-			if (leftPiece != null && leftPiece instanceof Pawn && leftPiece.isWhite() != this.isWhite()) {
-				if (board.lastMovedPiecefrom.getPiece() == leftPiece && board.lastMovedPieceto.equals(board.boardSpots[x2-1][y2])) {
-					return true;
-				}
-			}
-			if (rightPiece != null && rightPiece instanceof Pawn && rightPiece.isWhite() != this.isWhite()) {
-				if (board.lastMovedPiecefrom.getPiece() == rightPiece && board.lastMovedPieceto.equals(board.boardSpots[x2-1][y2])) {
-					return true;
-				}
-			}
-		}
-
-
-		
-		
-		return false;
-	}
-	
-
-
+ 	/**
+     * @param No param
+     * @return String the initial of the Piece based on their color
+     */
 	public String toString() {
 		if(isWhite == true){
 			return "wp";

@@ -1,13 +1,11 @@
 package Pieces;
 
 import java.util.Arrays;
-
-<<<<<<< HEAD
 import Chess_Game.Board;
-=======
+
 /**
  * King pieces of a chessPieces kind
- * @author Rohit and Basu
+ * @author Rohit 
  * @method 
  * <ul>
  * <li> CanMove
@@ -15,7 +13,6 @@ import Chess_Game.Board;
  * <li> canCastle
  */
 
->>>>>>> origin/master
 import Chess_Game.Spot;
 
 public class King extends ChessPieces{
@@ -31,6 +28,10 @@ public class King extends ChessPieces{
 		return hasMoved;
 	}
 
+	/**
+	 * Constructor for the king
+	 * @param isWhite
+	 */
 	public King(Boolean isWhite) {
 			super(isWhite);
 	}
@@ -86,18 +87,14 @@ public class King extends ChessPieces{
 		hasMoved = true;
 	}
 
-<<<<<<< HEAD
-	public boolean canCastle(Spot startSpot, Spot endSpot, Board board) {
-=======
 	/**
 	 * check if it is a valid castle move
 	 * @param startSpot staritng spot of the king 
 	 * @param endSpot ending spot of the king 
-	 * @param board board 
+	 * @param board the current board instance
 	 * @return true or false 
 	 */
-	public boolean canCastle(Spot startSpot, Spot endSpot, Spot[][] board) {
->>>>>>> origin/master
+	public boolean canCastle(Spot startSpot, Spot endSpot, Board board) {
 		// Check if King has moved previously
 		if (hasMoved()) {
 			return false;
@@ -148,7 +145,10 @@ public class King extends ChessPieces{
 	}
 	
 
-
+	/**
+     * @param No param
+     * @return String the initial of the Piece based on their color
+     */
 	public String toString() {
 		if(isWhite == true){
 			return "wK";

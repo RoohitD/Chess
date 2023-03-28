@@ -6,12 +6,12 @@ import Pieces.ChessPieces;
 import Pieces.Pawn;
 
 /**
- * this is where game really start. user put the input and get converted and move pieces according
+ * this is where game really start. user puts the input and it gets converted and move pieces accordingly
  * @author Rohit and Basu 
  * @method 
  * <ul> startGame 
  * <li> convertInput
- * <li>win
+ * <li> win
  * 
  * 
  */
@@ -31,6 +31,9 @@ public class Game {
 	boolean isWhiteTurn = true;
 
 
+	/**
+	 * This method craetes a Game constructor that draws the board and starts the game
+	 */
 	public Game(){
 		board.draw();
 		//upgradePawn();
@@ -59,98 +62,15 @@ public class Game {
 				turn = "White";
 			}
 		};
-/* 
-		while (scan.next() == "resign") {
-			System.out.print("White's Move");
-			scan.next();
-			System.out.print("Black's move: ");
-		}*/
 		System.out.println("Game end");
 	}
 
-
-	private void DecodeInput(String s){
-
-		String[] inputs = s.split(" ");
-		String start = inputs[0];
-		String end = inputs[1];
-		
-
-		// Convert the starting square (e4) into coordinates (4, 3)
-		int startY = start.charAt(0) - 'a';
-		int startX = 8 - Integer.parseInt(start.substring(1));
-
-		// Convert the ending square (e7) into coordinates (4, 6)
-		int endY = end.charAt(0) - 'a';
-		int endX = 8 - Integer.parseInt(end.substring(1));
-			   
-
-		if(inputs.length == 3){
-			
-			String upgrade;
-			if (inputs[2].equalsIgnoreCase("resign")){
-				run= false;
-				//System.out.print(  win()+ " win");
-			}else if (inputs[2].equalsIgnoreCase("Draw?")){
-				run = false ; 
-				System.out.print("Draw");
-			}
-			else if (inputs[2].equalsIgnoreCase("B")){
-			 	upgrade ="B";
-			 	//DecodeInput(start+" "+end);
-			 } else if (inputs[2].equalsIgnoreCase("Q")){
-			 	upgrade = "Q";
-			 	//DecodeInput(start+" "+end);
-			 }else if ( inputs[2].equalsIgnoreCase("R")){
-			 	upgrade = "R";
-
-			 	//DecodeInput(start+" "+end);
-			 }else if ( inputs[2].equalsIgnoreCase("N")){
-			 	upgrade= "N";
-			 	//DecodeInput(start+" "+end);
-			 }
-			 
-
-			else {
 	
-			
-				try {
-					if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX, startY), board.getSpot(endX, endY), board)){
-						if (board.getSpot(startX,startY).getPiece().isWhite()== isWhiteTurn){
-							board.setPosition(startX, startY, endX, endY, isWhiteTurn);
-							if (board.isInCheck(!isWhiteTurn, board.boardSpots)) {
-								System.out.println("Check!");
-							}
-							if(board.isCheckmate(!isWhiteTurn)){
-								System.out.println("Checkmate!");
-								System.out.print("Game over");
-								//System.out.println( win() + " win");
-								run= false; 
-							}
-							isWhiteTurn = !isWhiteTurn;
-						}
-						else{
-							System.out.println("invalid move. it's "+ turn + " turn");
-							DecodeInput(scan.nextLine());
-						}
-						System.out.println("It reaches here.");
-				} else {
-						System.out.println("Invalid move");
-						DecodeInput(scan.nextLine());
-				}
-				
-						
-			} catch (Exception e) {
-				System.out.println("No Chess pieces found, try again ");
-				DecodeInput(scan.nextLine());
-			}
-		} 	
-			} else {
-			System.out.println("Invalid input, try again");
-			DecodeInput(scan.nextLine());
-			}
-		}
-	
+	/**
+	 * This method prints the winner of the match
+	 * @param isWhiteTurn
+	 * @return String
+	 */
 	public String win(boolean isWhiteTurn){
 		if (isWhiteTurn){
 			return "Black";

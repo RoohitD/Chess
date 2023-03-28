@@ -17,10 +17,17 @@ import Pieces.Rook;
  * this is a board class.
  * @author Rohit and Basu 
  * @method <ul> 
- * <li>Reset Board
- *  <li>get spot 
- *  <li>draw <li>  movePiece<li> castle <li> undo move<li>  promotepawn <li>  castle 
+ * <li> resetBoard
+ *  <li> getspot 
+ *  <li>	draw 
+ * <li>  movePiece
+ * <li> castle 
+ * <li> undomove
+ * <li> promotepawn 
  *  <li> isinCheck
+ * <li> isCheckmate
+ * <li> doenPassant
+ * <li> setPosition
  */
 
 public class Board {
@@ -40,6 +47,12 @@ public class Board {
 		resetBoard();
 	}
 
+	/**
+	 * Returns Spot in a specific position on the board
+	 * @param x X coordinate of the Spot
+	 * @param y Y coordinate of the Spot
+	 * @return Spot the Spot requested
+	 */
 	public Spot getSpot(int x, int y){
 		return boardSpots[x][y];
 	}
@@ -47,6 +60,7 @@ public class Board {
 	
 	/**
 	 * this reset the board. it will put the chess pieces to the starting postion.
+	 * @return Nothing
 	 */
 	private void resetBoard() {
 
@@ -90,6 +104,7 @@ public class Board {
 	
 	/**
 	 * Method to draw the Chess board
+	 * @return Nothing
 	 */
 	public void draw(){
 		int z = 8;
@@ -112,13 +127,16 @@ public class Board {
 	}
 	
 	/**
-	 * 
+	 * Method to setPostion of the piece based on the constraints
 	 * @param startX 
 	 * @param startY
 	 * @param endX
 	 * @param endY
 	 * @param isWhiteTurn
-	 */
+	 * @exception NullPointerException when the move is no start piece
+	 * @exception IllegalArgumentException when the move is invalid 
+	 * @return Nothing 
+	 */ 
 	
 	public void setPosition(int startX, int startY, int endX, int endY, boolean isWhiteTurn){
 		// If the Piece does exist in the location specified
@@ -211,48 +229,6 @@ public class Board {
 		return capturedPiece;
 	}
 
-	public boolean isCheckmated(boolean isWhite) {
-		// Check if the king is in check
-		if (!isInCheck(isWhite, boardSpots)) {
-			return false;
-		}
-	
-		// Try to move all pieces to get out of check
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				Spot startSpot = new Spot(i, j);
-				ChessPieces piece = boardSpots[startSpot.getX()][startSpot.getY()].getPiece();
-	
-				if (piece != null && piece.isWhite() == isWhite) {
-					for (int k = 0; k < 9; k++) {
-						for (int l = 0; l < 9; l++) {
-							Spot endSpot = new Spot(k, l);
-							//System.out.println("Piece: " + startSpot.getPiece() + "x: " + );
-							if (boardSpots[startSpot.getX()][startSpot.getY()].getPiece().canMove(startSpot, endSpot, this)) {
-								// Try moving the piece
-								ChessPieces capturedPiece = movePiece(startSpot.getX(), startSpot.getY(),endSpot.getX(), endSpot.getY());
-	
-								// Check if the king is still in check
-								boolean stillInCheck = isInCheck(isWhite, boardSpots);
-
-
-								// Undo the move
-								undoMove(startSpot.getX(), startSpot.getY(),endSpot.getX(), endSpot.getY(), capturedPiece);
-	
-								// If the king is no longer in check, return false
-								if (!stillInCheck) {
-									return false;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	
-		// If no move can get out of check, return true
-		return true;
-	}
 
 	/**
 	 * check the and return if the checkmate happen
@@ -311,7 +287,8 @@ public class Board {
 	 * promot the pawn according to the letter and moved into the endspot 
 	 * @param startSpot start spot of a pieces 
 	 * @param endSpot   end spot of a pieces 
-	 * @param promotionPieceType letter that denote the pormotion pieces
+	 * @param promotionPieceType letter that denote the promotion pieces
+	 * @return Nothing
 	 */
 
 	public void promotePawn(Spot startSpot, Spot endSpot, String promotionPieceType){
@@ -340,12 +317,13 @@ public class Board {
 
 	
 	/**
-	 * 
-	 * @param startX
-	 * @param startY
-	 * @param endX
-	 * @param endY
-	 * @param capturedPiece
+	 * Undo the move if the user is in check
+	 * @param startX starting X postion of the piece
+	 * @param startY starting Y postion of the piece
+	 * @param endX ending X postion of the piece
+	 * @param endY ending Y postion of the piece
+	 * @param capturedPiece the previously captured piece
+	 * @return Nothing 
 	 */
 	public void undoMove(int startX, int startY, int endX, int endY, ChessPieces capturedPiece){
 		boardSpots[startX][endY].setPiece(boardSpots[endX][endY].getPiece());
@@ -374,11 +352,12 @@ public class Board {
 	}
 
 	/**
-	 *  castle 
-	 * @param startX
-	 * @param startY
-	 * @param endX
-	 * @param endY
+	 *  castle the king
+	 * @param startX starting X postion of the piece
+	 * @param startY starting Y postion of the piece
+	 * @param endX ending X postion of the piece
+	 * @param endY ending Y postion of the piece
+	 * @return Nothing
 	 */
 	public void castle(int startX, int startY, int endX, int endY){
 			boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
@@ -398,33 +377,14 @@ public class Board {
 			boardSpots[rookStartSpot.getX()][rookStartSpot.getY()].setPiece(null);
 	}
 
-	public Spot[][] copyBoard() {
-		Spot[][] copy = new Spot[8][8];
-		for(int i = 0; i < 8; i++) {
-			for(int j = 0; j < 8; j++) {
-				ChessPieces p = boardSpots[i][j].getPiece();
-				ChessPieces newPiece = null;
-				if(p != null) {
-					if(p instanceof Pawn) {
-						newPiece = new Pawn(p.isWhite());
-					} else if(p instanceof Knight) {
-						newPiece = new Knight(p.isWhite());
-					} else if(p instanceof Bishop) {
-						newPiece = new Bishop(p.isWhite());
-					} else if(p instanceof Rook) {
-						newPiece = new Rook(p.isWhite());
-					} else if(p instanceof Queen) {
-						newPiece = new Queen(p.isWhite());
-					} else if(p instanceof King) {
-						newPiece = new King(p.isWhite());
-					}
-				}
-				copy[i][j] = new Spot(i, j, newPiece);
-			}
-		}
-		return copy;
-	}
-
+	/**
+	 * Perform the enPassant Move
+	 * @param startX
+	 * @param startY
+	 * @param endX
+	 * @param endY
+	 * @return Nothing
+	 */
 	public void doEnPassant(int startX, int startY, int endX, int endY){
 		movePiece(startX, startY, endX, endY);
 	}

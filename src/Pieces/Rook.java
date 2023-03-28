@@ -4,33 +4,45 @@ import Chess_Game.Board;
 import Chess_Game.Spot;
 
 /**
- * Rook pieces of a cheshpieces kind
- * @author Rohit and Basu
+ * Rook pieces of a ChessPieces kind
+ * @author Rohit 
  * @method 
  * <ul>
  * <li> CanMove
- * <li> hasMove
+ * <li> hasMoved
+ * <li> toString
  */
 
 public class Rook extends ChessPieces{
 
     boolean hasMoved = false;
 
+
+    /**
+	 * Constructor for the Rook
+	 * @param isWhite
+	 */
     public Rook(Boolean isWhite) {
         super(isWhite);
     }
-/**
- * check if the piece has moved before
- * @return true or false according 
- */
+
+
+    /**
+     * check if the piece has moved before
+     * @return true or false according 
+     */
     public boolean hasMoved(){
         return hasMoved;
     }
 
 
-  /**
-   * check whether the move is valid rook move
-   */
+    /**
+     * this method checks if the move is valid for the Rook
+     * @param startSpot the startSpot of the Rook
+     * @param endSpot the endSpot for the Rook
+     * @param board the current board instance
+     * @return true or false
+     */
     @Override
     public boolean canMove(Spot startSpot, Spot endSpot, Board board) {
         int startX = startSpot.getX();
@@ -77,7 +89,10 @@ public class Rook extends ChessPieces{
             }
     }
 
-
+    /**
+     * @param No param
+     * @return String the initial of the Piece based on their color
+     */
 	public String toString() {
 		if(isWhite == true){
 			return "wR";

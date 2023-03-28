@@ -5,7 +5,7 @@ import Chess_Game.Spot;
 
 /**
  * 
- * @author Rohit and Basu 
+ * @author Rohit
  * @method 
  * <ul> 
  * <li>CanMove
@@ -13,14 +13,21 @@ import Chess_Game.Spot;
  */
 public class Bishop extends ChessPieces{
 
+    /**
+	 * Constructor for the Bishop
+	 * @param isWhite
+	 */
     public Bishop(Boolean isWhite) {
         super(isWhite);
     }
     
-    /**
-     * this will check if the pieces is valid move 
-     * 
-     */
+   /**
+	 * check if it is a valid move for Bishop
+	 * @param startSpot staritng spot of the Bishop 
+	 * @param endSpot ending spot of the Bishop
+	 * @param board the current board instance
+	 * @return true or false 
+	 */
     @Override
     public boolean canMove(Spot startSpot, Spot endSpot, Board board) {
         int startX = startSpot.getX();
@@ -55,6 +62,10 @@ public class Bishop extends ChessPieces{
         return false;
     }
 
+     /**
+     * @param No param
+     * @return String the initial of the Piece based on their color
+     */
     public String toString() {
         if(isWhite == true){
 			return "wB";
