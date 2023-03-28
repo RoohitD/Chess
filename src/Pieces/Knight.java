@@ -36,7 +36,7 @@ public class Knight extends ChessPieces{
 		int newY = Math.abs(startSpot.getY() - endSpot.getY());
 
         // check if the end spot is occupied by a piece of the same color
-        if (endSpot.getPiece() != null && endSpot.getPiece().isWhite() += this.isWhite()) {
+        if (endSpot.getPiece() != null && endSpot.getPiece().isWhite() == this.isWhite()) {
             return false;
         }
         
