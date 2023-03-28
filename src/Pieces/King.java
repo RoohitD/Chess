@@ -2,6 +2,7 @@ package Pieces;
 
 import java.util.Arrays;
 
+import Chess_Game.Board;
 import Chess_Game.Spot;
 
 public class King extends ChessPieces{
@@ -19,12 +20,13 @@ public class King extends ChessPieces{
 
 
 	@Override
-	public boolean canMove(Spot startSpot, Spot endSpot, Spot[][] board) {
+	public boolean canMove(Spot startSpot, Spot endSpot, Board board) {
 		int startX = startSpot.getX();
 		int startY = startSpot.getY();
 		int endX = endSpot.getX();
 		int endY = endSpot.getY();
 	
+
 		// Check if the end spot is not occupied by a piece of the same color
 		if (endSpot.getPiece() == null || endSpot.getPiece().isWhite() != isWhite) {
 			// Check if the move is a castling move
@@ -44,11 +46,11 @@ public class King extends ChessPieces{
 
 
 	//Checks if the King will be checked if the piece from the opposite side can be in that position
-	public boolean isChecked(Spot startSpot, Spot endSpot, Spot[][] board) {
+	public boolean isChecked(Spot startSpot, Spot endSpot, Board board) {
 		// Check if any piece can attack the king in the end spot
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				Spot spot = board[i][j];
+				Spot spot = board.boardSpots[i][j];
 				ChessPieces piece = spot.getPiece();
 				if (piece != null && piece.isWhite() != isWhite) {
 					if (piece.canMove(spot, endSpot, board)) {
@@ -64,7 +66,7 @@ public class King extends ChessPieces{
 		hasMoved = true;
 	}
 
-	public boolean canCastle(Spot startSpot, Spot endSpot, Spot[][] board) {
+	public boolean canCastle(Spot startSpot, Spot endSpot, Board board) {
 		// Check if King has moved previously
 		if (hasMoved()) {
 			return false;
@@ -91,13 +93,13 @@ public class King extends ChessPieces{
 		}
 	
 		for (int y = startY + direction; y != rookY; y += direction) {
-			if (board[startSpot.getX()][y].getPiece() != null) {
+			if (board.boardSpots[startSpot.getX()][y].getPiece() != null) {
 				return false;
 			}
 		}
 	
 		// Check if the Rook has not moved previously
-		ChessPieces rook = board[startSpot.getX()][rookY].getPiece();
+		ChessPieces rook = board.boardSpots[startSpot.getX()][rookY].getPiece();
 		if (!(rook instanceof Rook) || ((Rook) rook).hasMoved()) {
 			return false;
 		}
@@ -105,7 +107,7 @@ public class King extends ChessPieces{
 		// Check if the King is not in check in any of the squares between King and Rook
 		int y = startY;
 		while (y != rookY) {
-			Spot spot = board[startSpot.getX()][y];
+			Spot spot = board.boardSpots[startSpot.getX()][y];
 			if (isChecked(spot, endSpot, board)) {
 				return false;
 			}

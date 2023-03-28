@@ -16,7 +16,10 @@ import Pieces.Rook;
 
 public class Board {
 		
-	Spot[][] boardSpots;
+	public Spot[][] boardSpots;
+
+	public Spot lastMovedPieceto;
+	public Spot lastMovedPiecefrom;
 
 	ArrayList<Spot> killedWSpots = new ArrayList<Spot>();
 	ArrayList<Spot> killedBSpots = new ArrayList<Spot>();
@@ -94,17 +97,19 @@ public class Board {
 	}
 	
 	public void setPosition(int startX, int startY, int endX, int endY, boolean isWhiteTurn){
+		// If the Piece does exist in the location specified
 		if(boardSpots[startX][startY].getPiece() != null){
+			// If the piece does match the player's color
 			if(boardSpots[startX][startY].getPiece().isWhite() == isWhiteTurn){
-				if(boardSpots[startX][startY].getPiece().canMove(boardSpots[startX][startY], boardSpots[endX][endY], boardSpots)){	
-
+				// If the move is legal
+				if(boardSpots[startX][startY].getPiece().canMove(boardSpots[startX][startY], boardSpots[endX][endY], this)){	
 					if(boardSpots[startX][startY].getPiece() instanceof King && ((King) boardSpots[startX][startY].getPiece()).hasMoved() == false){
 						castle(startX, startY, endX, endY);
 						System.out.println("");
 						draw();
 					}
 					else {
-						capturedPiece = movePiece(startX, startY, endX, endY);
+						movePiece(startX, startY, endX, endY);
 						if(isInCheck(isWhiteTurn, boardSpots)){
 							System.out.println("Still in Check!");
 							undoMove(startX, startY, endX, endY, capturedPiece);
@@ -147,7 +152,7 @@ public class Board {
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
 				ChessPieces piece = board[i][j].getPiece();
-				if(piece != null && piece.isWhite() != isWhite && piece.canMove(board[i][j], board[kingX][kingY], board)) {
+				if(piece != null && piece.isWhite() != isWhite && piece.canMove(board[i][j], board[kingX][kingY], this)) {
 					return true;
 				}
 			}
@@ -158,6 +163,8 @@ public class Board {
 	
 	public ChessPieces movePiece(int startX, int startY, int endX, int endY){
 		capturedPiece = boardSpots[endX][endY].getPiece();
+		lastMovedPieceto = boardSpots[endX][endY];
+		lastMovedPiecefrom = boardSpots[startX][startY];
 		boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
 		boardSpots[startX][startY].setPiece(null);
 		System.out.println("");
@@ -178,16 +185,16 @@ public class Board {
 				ChessPieces piece = boardSpots[startSpot.getX()][startSpot.getY()].getPiece();
 	
 				if (piece != null && piece.isWhite() == isWhite) {
-					for (int k = 0; k < 8; k++) {
-						for (int l = 0; l < 8; l++) {
+					for (int k = 0; k < 9; k++) {
+						for (int l = 0; l < 9; l++) {
 							Spot endSpot = new Spot(k, l);
-							if (boardSpots[startSpot.getX()][startSpot.getY()].getPiece().canMove(startSpot, endSpot, boardSpots)) {
+							//System.out.println("Piece: " + startSpot.getPiece() + "x: " + );
+							if (boardSpots[startSpot.getX()][startSpot.getY()].getPiece().canMove(startSpot, endSpot, this)) {
 								// Try moving the piece
 								ChessPieces capturedPiece = movePiece(startSpot.getX(), startSpot.getY(),endSpot.getX(), endSpot.getY());
 	
 								// Check if the king is still in check
 								boolean stillInCheck = isInCheck(isWhite, boardSpots);
-	
 
 
 								// Undo the move
@@ -228,7 +235,7 @@ public class Board {
 							Spot endSpot = boardSpots[x][y];
 	
 							// Check if the move is legal
-							if (piece.canMove(startSpot, endSpot, boardSpots)) {
+							if (piece.canMove(startSpot, endSpot, this)) {
 								// Try making the move
 								ChessPieces capturedPiece = endSpot.getPiece();
 								endSpot.setPiece(piece);
@@ -350,5 +357,11 @@ public class Board {
 		}
 		return copy;
 	}
+
+	public void doEnPassant(int startX, int startY, int endX, int endY){
+		movePiece(startX, startY, endX, endY);
+	}
+
+
 
 }

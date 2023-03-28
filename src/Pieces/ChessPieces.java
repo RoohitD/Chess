@@ -2,6 +2,7 @@ package Pieces;
 
 import java.util.Arrays;
 
+import Chess_Game.Board;
 import Chess_Game.Spot;
 
 public abstract class ChessPieces {
@@ -14,10 +15,13 @@ public abstract class ChessPieces {
 		this.isWhite = isWhite;
 	}
 
-	public abstract boolean canMove(Spot startSpot, Spot endSpot, Spot[][] boardSpots);
+	public abstract boolean canMove(Spot startSpot, Spot endSpot, Board board);
 
 	public boolean isWhite(){
 		return isWhite;
+	}
+
+	public void setLastMoved(Spot spot) {
 	}
 	
 }

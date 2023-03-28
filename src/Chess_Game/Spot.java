@@ -1,7 +1,6 @@
 package Chess_Game;
 
 import Pieces.ChessPieces;
-import Pieces.King;
 
 public class Spot {
     private int x;

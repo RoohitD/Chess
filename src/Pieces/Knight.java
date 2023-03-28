@@ -1,5 +1,6 @@
 package Pieces;
 
+import Chess_Game.Board;
 import Chess_Game.Spot;
 
 public class Knight extends ChessPieces{
@@ -9,12 +10,16 @@ public class Knight extends ChessPieces{
     }
 
     @Override
-    public boolean canMove(Spot startSpot, Spot endSpot, Spot[][] board) {
+    public boolean canMove(Spot startSpot, Spot endSpot, Board board) {
 		int newX = Math.abs(startSpot.getX() - endSpot.getX());
 		int newY = Math.abs(startSpot.getY() - endSpot.getY());
 
         // check if the end spot is occupied by a piece of the same color
         if (endSpot.getPiece() != null && endSpot.getPiece().isWhite() == this.isWhite()) {
+            return false;
+        }
+        
+        if(startSpot.getX() == endSpot.getX() && startSpot.getY() == endSpot.getY()){
             return false;
         }
 

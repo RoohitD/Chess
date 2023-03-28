@@ -1,5 +1,6 @@
 package Pieces;
 
+import Chess_Game.Board;
 import Chess_Game.Spot;
 
 public class Queen extends ChessPieces{
@@ -9,7 +10,7 @@ public class Queen extends ChessPieces{
     }
 
     @Override
-    public boolean canMove(Spot startSpot, Spot endSpot, Spot[][] boardSpots) {
+    public boolean canMove(Spot startSpot, Spot endSpot, Board board) {
         int startX = startSpot.getX();
         int startY = startSpot.getY();
         int endX = endSpot.getX();
@@ -23,6 +24,9 @@ public class Queen extends ChessPieces{
 			return false;
 		}
 
+        if(startX == endX && startY == endY){
+            return false;
+        }
 
         // check if the move is diagonal or straight
         if (dx != dy && startX != endX && startY != endY) {
@@ -34,14 +38,14 @@ public class Queen extends ChessPieces{
             if (startY == endY) {
                 int xDir = (endX - startX) > 0 ? 1 : -1;
                 for (int x = startX + xDir; x != endX; x += xDir) {
-                    if (boardSpots[x][startY].getPiece() != null) {
+                    if (board.boardSpots[x][startY].getPiece() != null) {
                         return false;
                     }
                 }
             } else {
                 int yDir = (endY - startY) > 0 ? 1 : -1;
                 for (int y = startY + yDir; y != endY; y += yDir) {
-                    if (boardSpots[startX][y].getPiece() != null) {
+                    if (board.boardSpots[startX][y].getPiece() != null) {
                         return false;
                     }
                 }
@@ -55,7 +59,7 @@ public class Queen extends ChessPieces{
             int x = startX + xDir;
             int y = startY + yDir;
             while (x != endX && y != endY) {
-                if (boardSpots[x][y].getPiece() != null) {
+                if (board.boardSpots[x][y].getPiece() != null) {
                     return false;
                 }
                 x += xDir;

@@ -1,13 +1,8 @@
 package Chess_Game;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import java.util.Scanner;
 import Pieces.ChessPieces;
-import Pieces.King;
 import Pieces.Pawn;
 
 public class Game {
@@ -82,7 +77,7 @@ public class Game {
 			String upgrade;
 			if (inputs[2].equalsIgnoreCase("resign")){
 				run= false;
-				System.out.print(  win()+ " win");
+				//System.out.print(  win()+ " win");
 			}else if (inputs[2].equalsIgnoreCase("Draw?")){
 				run = false ; 
 				System.out.print("Draw");
@@ -107,7 +102,7 @@ public class Game {
 	
 			
 				try {
-					if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX, startY), board.getSpot(endX, endY), board.boardSpots)){
+					if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX, startY), board.getSpot(endX, endY), board)){
 						if (board.getSpot(startX,startY).getPiece().isWhite()== isWhiteTurn){
 							board.setPosition(startX, startY, endX, endY, isWhiteTurn);
 							if (board.isInCheck(!isWhiteTurn, board.boardSpots)) {
@@ -116,7 +111,7 @@ public class Game {
 							if(board.isCheckmate(!isWhiteTurn)){
 								System.out.println("Checkmate!");
 								System.out.print("Game over");
-								System.out.println( win() + " win");
+								//System.out.println( win() + " win");
 								run= false; 
 							}
 							isWhiteTurn = !isWhiteTurn;
@@ -143,11 +138,11 @@ public class Game {
 			}
 		}
 	
-	public String  win(){
-		if ( turn == "white"){
-		return "black";
-		}else{
-		return "white";
+	public String win(boolean isWhiteTurn){
+		if (isWhiteTurn){
+			return "Black";
+		} else{
+			return "White";
 		}
 	}
 
@@ -180,7 +175,7 @@ public class Game {
 		if(promote.toLowerCase().compareTo("resign") == 0){
 			run = false;
 		} else if(promote.toLowerCase().compareTo("draw?") == 0){
-			if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX,startY), board.getSpot(endX,endY), board.boardSpots)){
+			if(board.getSpot(startX,startY).getPiece().canMove(board.getSpot(startX,startY), board.getSpot(endX,endY), board)){
 				run = false;
 				System.out.println("Draw");
 			} else {
@@ -190,14 +185,18 @@ public class Game {
 		} else if(parts.length == 3 && board.getSpot(startX, startY).getPiece() instanceof Pawn && endX == (piece.isWhite() ? 0 : 7) && (parts[2].equals("N") || (parts[2].equals("B") || parts[2].equals("R") || parts[2].equals("Q")))){
 			board.promotePawn(board.getSpot(startX, startY), board.getSpot(endX, endY), promote);
 		} else if(parts.length == 2){
-		
 				try {
+					System.out.println("startX, startY " + startX + ", " + startY);
 					if (board.getSpot(startX, startY).getPiece() instanceof Pawn && endX == (piece.isWhite() ? 0 : 7)) {
 						board.promotePawn(board.getSpot(startX, startY), board.getSpot(endX, endY), promote);
 						board.draw();
 						isWhiteTurn = !isWhiteTurn;
 					} else {
 						board.setPosition(startX, startY, endX, endY, isWhiteTurn);
+						if(board.isCheckmate(!isWhiteTurn)){
+							run = false;
+							System.out.println( win(!isWhiteTurn) + " win");
+						}
 						isWhiteTurn = !isWhiteTurn;
 					}					
 					} catch (IllegalArgumentException e) {
