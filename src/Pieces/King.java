@@ -2,7 +2,20 @@ package Pieces;
 
 import java.util.Arrays;
 
+<<<<<<< HEAD
 import Chess_Game.Board;
+=======
+/**
+ * King pieces of a chessPieces kind
+ * @author Rohit and Basu
+ * @method 
+ * <ul>
+ * <li> CanMove
+ * <li> hasmoved
+ * <li> canCastle
+ */
+
+>>>>>>> origin/master
 import Chess_Game.Spot;
 
 public class King extends ChessPieces{
@@ -10,6 +23,10 @@ public class King extends ChessPieces{
 
 	public boolean hasMoved = false;
 
+	/**
+	 * check if the pieces have moved befor
+	 * @return true and false 
+	 */
 	public boolean hasMoved(){
 		return hasMoved;
 	}
@@ -19,6 +36,9 @@ public class King extends ChessPieces{
 	}
 
 
+	/**
+	 * check for the vaid king move
+	 */
 	@Override
 	public boolean canMove(Spot startSpot, Spot endSpot, Board board) {
 		int startX = startSpot.getX();
@@ -66,7 +86,18 @@ public class King extends ChessPieces{
 		hasMoved = true;
 	}
 
+<<<<<<< HEAD
 	public boolean canCastle(Spot startSpot, Spot endSpot, Board board) {
+=======
+	/**
+	 * check if it is a valid castle move
+	 * @param startSpot staritng spot of the king 
+	 * @param endSpot ending spot of the king 
+	 * @param board board 
+	 * @return true or false 
+	 */
+	public boolean canCastle(Spot startSpot, Spot endSpot, Spot[][] board) {
+>>>>>>> origin/master
 		// Check if King has moved previously
 		if (hasMoved()) {
 			return false;

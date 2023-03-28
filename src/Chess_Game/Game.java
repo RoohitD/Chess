@@ -5,6 +5,16 @@ import java.util.Scanner;
 import Pieces.ChessPieces;
 import Pieces.Pawn;
 
+/**
+ * this is where game really start. user put the input and get converted and move pieces according
+ * @author Rohit and Basu 
+ * @method 
+ * <ul> startGame 
+ * <li> convertInput
+ * <li>win
+ * 
+ * 
+ */
 public class Game {
 
 	//----------------------------------
@@ -29,6 +39,9 @@ public class Game {
 	
 	//-------------------------------------------------------
 	// start game 
+	/**
+	 * this is where the game start. it will be callled after the game start.
+	 */
 	public void startGame() {
 
 		while(run){
@@ -146,7 +159,10 @@ public class Game {
 		}
 	}
 
-
+/**
+ * convet the user input into the number and move the pieces accordingly in the array list
+ * @param s user inputs 
+ */
 	private void convertInput(String s){
 		String input = s.trim();
 		String start;

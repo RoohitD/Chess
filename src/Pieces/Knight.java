@@ -3,12 +3,24 @@ package Pieces;
 import Chess_Game.Board;
 import Chess_Game.Spot;
 
+/**
+ * Knight pieces of a chessPieces kind
+ * @author Rohit and Basu
+ * @method 
+ * <ul>
+ * <li> CanMove
+ * 
+ * 
+ */
 public class Knight extends ChessPieces{
 
     public Knight(Boolean isWhite) {
         super(isWhite);
     }
 
+    /**
+     * check the valid move for the knight
+     */
     @Override
     public boolean canMove(Spot startSpot, Spot endSpot, Board board) {
 		int newX = Math.abs(startSpot.getX() - endSpot.getX());

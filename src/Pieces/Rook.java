@@ -3,6 +3,15 @@ package Pieces;
 import Chess_Game.Board;
 import Chess_Game.Spot;
 
+/**
+ * Rook pieces of a cheshpieces kind
+ * @author Rohit and Basu
+ * @method 
+ * <ul>
+ * <li> CanMove
+ * <li> hasMove
+ */
+
 public class Rook extends ChessPieces{
 
     boolean hasMoved = false;
@@ -10,12 +19,18 @@ public class Rook extends ChessPieces{
     public Rook(Boolean isWhite) {
         super(isWhite);
     }
-
+/**
+ * check if the piece has moved before
+ * @return true or false according 
+ */
     public boolean hasMoved(){
         return hasMoved;
     }
 
 
+  /**
+   * check whether the move is valid rook move
+   */
     @Override
     public boolean canMove(Spot startSpot, Spot endSpot, Board board) {
         int startX = startSpot.getX();
