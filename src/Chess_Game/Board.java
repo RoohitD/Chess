@@ -145,7 +145,7 @@ public class Board {
 			if(boardSpots[startX][startY].getPiece().isWhite() == isWhiteTurn){
 				// If the move is legal
 				if(boardSpots[startX][startY].getPiece().canMove(boardSpots[startX][startY], boardSpots[endX][endY], this)){	
-					if(boardSpots[startX][startY].getPiece() instanceof King && ((King) boardSpots[startX][startY].getPiece()).hasMoved() == false){
+					if(boardSpots[startX][startY].getPiece() instanceof King && ((King) boardSpots[startX][startY].getPiece()).hasMoved() == false && startX - endX == 0){
 						castle(startX, startY, endX, endY);
 						System.out.println("");
 						draw();

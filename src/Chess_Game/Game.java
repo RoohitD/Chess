@@ -122,12 +122,11 @@ public class Game {
 			board.promotePawn(board.getSpot(startX, startY), board.getSpot(endX, endY), promote);
 		} else if(parts.length == 2){
 				try {
-					System.out.println("startX, startY " + startX + ", " + startY);
 					if (board.getSpot(startX, startY).getPiece() instanceof Pawn && endX == (piece.isWhite() ? 0 : 7)) {
 						board.promotePawn(board.getSpot(startX, startY), board.getSpot(endX, endY), promote);
 						board.draw();
 						isWhiteTurn = !isWhiteTurn;
-					} else {
+					}  else {
 						board.setPosition(startX, startY, endX, endY, isWhiteTurn);
 						if(board.isCheckmate(!isWhiteTurn)){
 							run = false;
@@ -139,8 +138,13 @@ public class Game {
 						System.out.println("Invalid Move. Try Again.");
 						convertInput(scan.nextLine());
 					} catch (NullPointerException e) {
-						System.out.println("No Piece in that Spot. Try Again");
-						convertInput(scan.nextLine());
+						if (board.getSpot(startX, startY).getPiece() instanceof Pawn && board.boardSpots[startX][startY].getPiece().canMove(board.boardSpots[startX][startY], board.boardSpots[endX][endY], board)) {
+							board.movePiece(startX, startY, endX, endY);
+						} else {
+							System.out.println("No Piece in that Spot. Try Again");
+							convertInput(scan.nextLine());
+						}
+						
 					} 
 			} else {
 					System.out.print("Invalid Input. Try Again: ");
